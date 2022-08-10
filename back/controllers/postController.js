@@ -83,15 +83,15 @@ module.exports.likePost = async (req,res) => {
     if(!ObjectID.isValid(req.params.id))
         return res.status(403).error
 
-    const like = req.body.like
-
     if (ObjectID.isValid(req.body.userId) == true){
         PostModel.findOne({
             _id: req.params.id
         }).then(post => {
                 if (post.usersLiked.indexOf(req.body.userId) != -1){ //// User dans la table Liked
+                    return res.status(401).send("L'utilisateur aime deja"); 
                 }else {//// User pas dans la table liked
                     post.likes++; // Like
+                    post.usersLiked.push(req.body.userId);
                 }
                 post.save();
             
