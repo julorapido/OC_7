@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap');
+
+$main-font: 'Lato', sans-serif;
+
+$color-1 : #FD2D01;
+$color-2 : #FFD7D7;
+$color-3 : #4E5166;
+$font-black: #1f1f1f;
+@mixin verticalCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+*{
+    font-family: $main-font;
+}
