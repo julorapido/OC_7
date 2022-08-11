@@ -5,7 +5,15 @@ $main-font: 'Lato', sans-serif;
 $color-1 : #FD2D01;
 $color-2 : #FFD7D7;
 $color-3 : #4E5166;
+$color-4 : #ffecec;
+$color-5 : #e4b2b2;
+$color-6: rgb(174, 48, 48);
 $font-black: #1f1f1f;
+$font-lightgray: #a5a5a5;
+$font-grey: #737373;
+$white: #ffffff;
+$form-border-radius: 15px;
+
 @mixin verticalCenter{
     display: flex;
     justify-content: center;
@@ -15,4 +23,5 @@ $font-black: #1f1f1f;
 
 *{
     font-family: $main-font;
+    text-decoration: none;
 }

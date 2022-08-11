@@ -1,3 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap");
+* {
+  font-family: "Lato", sans-serif;
+  text-decoration: none;
+}
+
 body {
+  color: #1f1f1f;
+  background-color: #ffecec;
+}
+
+.parent {
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 2.5rem;
+  min-height: 85vh;
+  box-sizing: border-box;
+  box-shadow: 8px 8px 0px #e4b2b2;
+}
+.parent .left {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+.parent .left h5 {
+  bottom: 0;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-weight: 300;
+  color: #4E5166;
+}
+.parent .left .titles {
+  margin-top: 13px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+.parent .left .titles span {
+  text-shadow: 20Px 20px;
+  color: #FD2D01;
+  font-size: 30px;
+}
+.parent .left .titles .insc_title {
+  word-spacing: 0.7rem;
+}
+.parent .left .titles .title_icon {
+  width: 70px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.parent .left .titles h1 {
+  font-size: 35px;
+}
+.parent .left .titles h2 {
+  font-weight: 300;
+  font-size: 22px;
+}
+.parent .left .titles h3 {
+  color: #a5a5a5;
+  font-weight: 100;
+  font-size: 15px;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+.parent .left .titles h3:before {
+  content: "";
+  display: block;
+  width: 33%;
+  height: 1px;
+  background: #a5a5a5;
+  left: 0;
+  top: 0.7rem;
+  position: relative;
+}
+.parent .left .titles h3:after {
+  content: "";
+  display: block;
+  width: 33%;
+  height: 1px;
+  background: #a5a5a5;
+  right: 0;
+  left: 70%;
+  top: -0.7rem;
+  position: relative;
+}
+.parent .left .form .form_text span {
+  color: #FD2D01;
+}
+.parent .left .form .form_text h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.parent .left .form .form_text input {
+  font-size: 16px;
+  border-radius: 15px;
+  border: 1px solid #a5a5a5;
+  margin-left: 0.5rem;
+  padding: 10px 0px 10px 25px;
+  color: #a5a5a5;
+  background-color: #ffffff;
+  width: 90%;
+  transition: 0.4s;
+}
+.parent .left .form .form_text input:hover {
+  border-color: black;
   color: black;
+  transform: translateX(5px);
+}
+.parent .left .form button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 13px;
+  border-radius: 15px;
+  background-color: #FD2D01;
+  color: white;
+  border: 0px solid;
+  transition: 0.3s;
+  font-size: 18px;
+  border: 2px solid rgb(174, 48, 48);
+  box-shadow: 5.5px 5.5px 0px rgb(174, 48, 48);
+}
+.parent .left .form button:hover {
+  font-size: 19px;
+  transform: translateX(4px);
+  box-shadow: 1px 1px 0px rgb(174, 48, 48);
+}
+.parent .right {
+  height: 100%;
+  width: 100%;
+  background-color: #FFD7D7;
+}
+.parent .right img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  aspect-ratio: 1/1;
+}
+
+@media screen and (max-width: 1224px) {
+  .parent {
+    width: 90%;
+  }
+}
+/* LAPTOP */
+@media screen and (max-width: 1024px) {
+  .parent {
+    width: 90%;
+    margin-top: 1.3rem !important;
+  }
+  .titles h1 {
+    font-size: 23px !important;
+  }
+  .titles h2 {
+    font-size: 19px !important;
+  }
+  .titles h3 {
+    font-size: 14px !important;
+  }
+  .titles h3:before {
+    top: 0.6rem !important;
+    width: 22% !important;
+  }
+  .titles h3:after {
+    top: -0.5rem !important;
+    width: 20% !important;
+  }
+  .form_text input {
+    font-size: 15px !important;
+    padding: 7px 0px 7px 14px !important;
+  }
+}
+/* TABLETTE */
+@media screen and (max-width: 768px) {
+  .parent {
+    grid-template-columns: 2fr 1fr;
+    margin-top: 1.5rem;
+  }
+  .form_text > h2 {
+    font-size: 3px;
+  }
+}
+/* PHONE */
+@media screen and (max-width: 500px) {
+  .parent {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .titles h3 {
+    font-size: 11px !important;
+    display: none !important;
+  }
 }/*# sourceMappingURL=signup.css.map */
