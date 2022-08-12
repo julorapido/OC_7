@@ -8,19 +8,21 @@
     display: flex;
     flex-direction: row;
     border-radius: 25px;
-    .home_template{
-        width: 91%;
-        max-height: 95%;
-        border-radius: 30px;
-        margin-top: 12%;
-        box-shadow: 10px 10px 17px $color-5;
-        border:  thick double $color-5;
+    .image{
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: -100px;
+        .home_template{
+            width: 70%;
+            max-height: 95%;
+            border-radius: 30px;
+            box-shadow: 4px 4px 0px $color-6;
+            border: 2px solid  $color-6;
+        }
     }
+
     text-align: center;
-    h2{
-        font-weight: 300;
-        font-size: 17px;
-    }
+
 
     .groupomania_logo{
         width: 160px;
@@ -28,13 +30,26 @@
 
 
     .content{
-        background-color: white;
+        background-color: $color-2;
+        box-shadow: 5px 5px 0px $color-5;
+        border-radius: 0px 0px 20px 20px;
         color: #292929;
         height: max-content;
+        padding: 10px;
         margin-top: auto;
         margin-bottom: auto;
+        margin-left: -70px;
         h1{
             margin-top: 0px;
+            text-shadow: 1px 1px rgb(173, 173, 173);
+        }
+        h2{
+            color: $color-1;
+            font-weight: 400;
+        }
+        h3{
+            font-weight: 300;
+            font-size: 17px;
         }
         button{
             width: 80%;
@@ -46,7 +61,7 @@
             box-shadow: 4px 4px 0px $color-6;
             transition: 0.3s;
             word-spacing: 1px;
-            color: black;
+            color: white;
         }
         button:hover{
             box-shadow: 1px 1px 0px $color-6;
@@ -56,8 +71,15 @@
 }
 
 @media screen and  (max-width: 768px){
+
     .home_div{
         flex-direction: column;
+        .image{
+            margin-left: initial;
+        }
+        .content{
+            margin-left: initial;
+        }
     }
    .home_template{
     margin-top: 3vh !important  ;
