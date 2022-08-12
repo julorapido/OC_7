@@ -175,8 +175,7 @@ body {
     width: 22% !important;
   }
   .titles h3:after {
-    top: -0.5rem !important;
-    width: 20% !important;
+    display: none;
   }
   .form_text input {
     font-size: 15px !important;
