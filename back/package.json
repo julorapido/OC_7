@@ -1,6 +1,7 @@
 {
   "name": "back",
   "version": "1.0.0",
+  "homepage": "https://julorapido.github.io/OpenClassrooms_Projet7/",
   "description": "Groupomania back-end",
   "main": "server.js",
   "scripts": {

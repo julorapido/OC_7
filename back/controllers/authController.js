@@ -36,3 +36,16 @@ module.exports.login = async (req,res) => {
 
 
 }
+
+module.exports.getUserCount = async (req,res) => {
+    const query = UserModel.find();
+    query.count(function (err, docs){
+        if (err) return res.status(400).send(err)
+        else 
+        {
+            console.log(docs);
+            return res.status(200).send({docs});
+        }
+    })
+     
+}

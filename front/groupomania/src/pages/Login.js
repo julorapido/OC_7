@@ -5,6 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 function Login() {
+
+    const [formValue, setformValue] = React.useState({
+        email: '',
+        password: ''
+      });
+
+
     return (
     
         <div className='parent'>
@@ -26,12 +33,12 @@ function Login() {
             
                 <div className="form_text">
                         <h2>Email</h2>
-                        <input type="text" defaultValue="Email"/>
+                        <input type="email" defaultValue="Email"/>
                 </div>
 
                 <div className="form_text">
                         <h2>Mot de passe</h2>
-                        <input type="text" defaultValue="Mot de passe"/>
+                        <input type="password" defaultValue="Mot de passe"/>
                 </div>
 
                 
