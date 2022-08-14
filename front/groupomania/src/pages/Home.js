@@ -5,8 +5,7 @@ import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons'
 import { faUserTie } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
-
-
+import Fade from 'react-reveal/Fade';
 
 function Home() {
     const [users, getUsers] = useState('');
@@ -24,23 +23,24 @@ function Home() {
 
     return (
         <div className='home_div'>
-
+            <Fade left>
             <div className="image">
                   <img src={require("../media/template3.png")} alt="Groupomania-template"  className='home_template'/>   
             </div>
-
+            </Fade>
+            <Fade right>
             <div className="content">
                 <img src={require("../media/blackIcon.png")} alt="Groupomania-template"  className='groupomania_logo'/>   
                 <h1>Bienvenue sur le site de Groupomania !</h1>
-                <h2>Rejoignez cette plateform pour pouvoir échanger !</h2>
-                <h3>Communiquez dès maintenant les {users} Utilisateurs</h3>
+                <h2>Rejoignez cette plateforme pour pouvoir échanger avec vos collègues !</h2>
+                <h3>Communiquez dès maintenant avec plus de <span>{users -1}</span> Utilisateurs</h3>
                 <NavLink exact to="/login" style={{ textDecoration: 'none', color: "white" }}  > <button>Se Connecter <FontAwesomeIcon icon={faSquareArrowUpRight} /> </button></NavLink>
                 <h4>OU</h4>
-                <NavLink exact to="/signup" style={{ textDecoration: 'none', color: "white" }}  > <button className='btn-2'>S'inscrire <FontAwesomeIcon icon={faUserTie} /> </button></NavLink>
-                <h5>2022 © Groupomania</h5>
+                <NavLink exact to="/signup" style={{ textDecoration: 'none', color: "white" }} > <button className='btn-2'>S'inscrire <FontAwesomeIcon icon={faUserTie} /> </button></NavLink>
+                <h5>2022 © Groupomania Tout Droit Reservés</h5>
 
             </div>
-      
+            </Fade>
         </div>
     )
 }

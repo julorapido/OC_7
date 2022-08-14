@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
     },
     imageUrl: {
         type: String,
-        default: "http://localhost:3000/uploads",
+        default: "http://localhost:3000/uploads/react.png",
         required: true
     },
     nom: {

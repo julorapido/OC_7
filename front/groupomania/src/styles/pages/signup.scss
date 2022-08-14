@@ -16,6 +16,7 @@ body{
     min-height: 85vh;
     box-sizing: border-box;
     box-shadow: 8px 8px 0px $color-5;
+
     .left{
         display: flex;
         flex-direction: column;
@@ -31,7 +32,13 @@ body{
             font-weight: 300;
            color: $color-3;
         }   
-
+        .linktopage{
+            transition: 0.3s;
+        }
+        .linktopage:hover{
+            transform: translateX(4px);
+            
+        }
         .titles{
             margin-top: 13px;
             height: max-content;
@@ -96,6 +103,9 @@ body{
                 h2{
                     font-size: 16px;
                     font-weight: 600;
+                }
+                .errorHandler{
+                    color: $color-1;
                 }
                 input{
                     font-size: 16px;

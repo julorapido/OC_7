@@ -3,9 +3,12 @@ import { NavLink } from "react-router-dom";
 import '../styles/pages/signup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserTie } from '@fortawesome/free-solid-svg-icons'
+import Fade from 'react-reveal/Fade';
 
 function Signup() {
     return (
+        <>
+        <Fade left>
     <div className='parent'>
 
             <div className="left">
@@ -51,7 +54,7 @@ function Signup() {
                     <button>Inscription</button>
                     <h4>
                        Déjà un compte ?            
-                        <NavLink exact to="/login" activeClassName="navActive"  style={{ textDecoration: 'none', color: "#FD2D01" }} > Connecte-toi</NavLink>
+                        <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} > Connecte-toi</NavLink>
                     </h4>
                 </div>
                 <h5>2022@ Groupomania Tout Droits Réservés</h5>
@@ -67,6 +70,8 @@ function Signup() {
    
     
     </div>
+    </Fade>
+    </>
     )
 }
 

@@ -1,5 +1,6 @@
 const UserModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const {signUpErrors, signInErrors } = require('../utils/errorsUtils');
 
 module.exports.signup = async (req, res) => {
     const {email, password, nom, prenom} = req.body
@@ -14,12 +15,14 @@ module.exports.signup = async (req, res) => {
         });
         res.status(200).send({user: user._id});
     }catch(err){
-        res.status(401).send({err});
+        const errors = signUpErrors(err);   
+         res.status(201).send({errors})
     }
 }
 
 module.exports.login = async (req,res) => {
-    const {email, password} = req.body
+    const {email, password} = req.body;
+    console.log(req.body);
     try{
         // Appel de le fonction login du schema
         const userData = await UserModel.login(email, password);
@@ -31,7 +34,8 @@ module.exports.login = async (req,res) => {
                             )
         });
     }catch(err){
-        return res.status(500).send({err});
+        const errors = signInErrors(err);   
+        res.status(201).send({errors})
     }
 
 

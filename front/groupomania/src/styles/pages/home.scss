@@ -17,6 +17,11 @@
             border-radius: 30px;
             box-shadow: 4px 4px 0px $color-6;
             border: 2px solid  $color-6;
+            transition: 0.7s;
+        }
+        .home_template:hover{
+            transform: translateX(-5px);
+            box-shadow: 0px 0px 0px $color-6;
         }
     }
 
@@ -34,7 +39,9 @@
 
 
     .content{
+        transition: 0.3s;
         background-color: $color-2;
+        border: 2px solid $color-5;
         box-shadow: 5px 5px 0px $color-5;
         border-radius: 10px;
         color: #292929;
@@ -49,16 +56,25 @@
             color: rgb(255, 255, 255);
             -webkit-text-stroke: 1px black;
             text-shadow: 1px 2px 0px black;
-            font-size: 40px;
+            font-size: 35px;
         }
         h2{
-            color: $color-1;
-            font-size: 15px;
+            color: white;
+            padding: 20px;
+            font-size: 17px;
             font-weight: 400;
+            margin-left: 50px;
+            margin-right: 50px;
+            border-radius: 20px;
+            background-color: $color-5;
         }
         h3{
-            font-weight: 300;
-            font-size: 20px;
+            font-weight: 400;
+            font-size: 22px;
+        }
+        span{
+            color: $color-1;
+            font-weight: 700;
         }
         h4{
             display: flex;
@@ -90,6 +106,10 @@
             top: 0.7rem;
             position: relative;
         }
+        h5{
+            font-weight: 300;
+            font-size: 15px;
+        }
         button{
             width: 80%;
             padding: 15px;
@@ -111,6 +131,16 @@
             background-color: rgb(255, 201, 201);
             color: $color-6;
         }
+    }
+
+    .content:hover{
+        box-shadow: 0px 0px 0px $color-5;
+        transform: translateX(1px);
+    }
+}
+@media screen and  (max-width: 375px){
+    .groupomania_logo{
+        border-bottom: 0px solid !important;
     }
 }
 
