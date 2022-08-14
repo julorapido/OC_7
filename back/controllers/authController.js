@@ -4,7 +4,6 @@ const {signUpErrors, signInErrors } = require('../utils/errorsUtils');
 
 module.exports.signup = async (req, res) => {
     const {email, password, nom, prenom} = req.body
-    console.log(req.body);
     try{
         const user = await UserModel.create({
             email: email,
@@ -22,7 +21,6 @@ module.exports.signup = async (req, res) => {
 
 module.exports.login = async (req,res) => {
     const {email, password} = req.body;
-    console.log(req.body);
     try{
         // Appel de le fonction login du schema
         const userData = await UserModel.login(email, password);

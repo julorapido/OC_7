@@ -1,11 +1,78 @@
-import React from 'react'
-import { NavLink } from "react-router-dom";
+import React, {useState, useEffect} from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
 import '../styles/pages/signup.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserTie } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 
 function Signup() {
+
+    const [formEmail, setEmail] = useState('');
+    const [formPassword, setPassword] = useState('');
+    const [formFirstName, setFirstName] = useState('');
+    const [formLastName, setLastName] = useState('');
+    const data = {
+        email : formEmail,
+        password : formPassword,
+        firstName: formFirstName,
+        lastName: formLastName
+    }
+    const navigate = useNavigate();
+
+
+    const [emailResp, setEmailResp] = useState('');
+    const [passwordResp, setPasswordResp] = useState('');
+
+    const handleClick = async () => {
+
+    
+    
+        try{
+            console.log(JSON.stringify(data));
+            await axios.post('http://localhost:3000/api/auth/signup',  {
+                    email: data.email ,
+                    password: data.password,
+                    nom: data.firstName,
+                    prenom: data.lastName
+                }).then(resp => {
+                    if (resp.data.errors){
+                        const emailResp = resp.data.errors.email;
+                        const passwordResp = resp.data.errors.password;
+
+                        if (emailResp.length != 0){
+                            setEmailResp(resp.data.errors.email);
+                        }else if (emailResp.length == 0){
+                            setEmailResp(' ');
+                        }
+
+                        if (passwordResp.length == 0 ){
+                            setPasswordResp(' ');
+                        }else{
+                            setPasswordResp(resp.data.errors.password);
+                        }
+                    }else {
+                        setEmailResp(' ');
+                        setPasswordResp(' ');
+                        localStorage.setItem("userId", resp.data.userId);
+                        navigate("/login");
+                    }
+                })    
+        }catch(err){
+            
+        }
+    }
+    
+    const handleEmail = event => {
+        if (/\S+@\S+\.\S+/.test(event.target.value) == true){
+            setEmailResp(' ');
+            setEmail(event.target.value);
+        }else{
+            setEmailResp('Email correct svp');
+        }
+    }
+
+    
     return (
         <>
         <Fade left>
@@ -26,14 +93,14 @@ function Signup() {
                         <h2>Nom
                         <span>*</span>
                         </h2>
-                        <input type="text" defaultValue="Nom"/>
+                        <input type="text" defaultValue="Nom"  onChange={e => setFirstName(e.target.value)}/>
                     </div>
 
                     <div className="form_text">
                         <h2>Prénom
                         <span>*</span>
                         </h2>
-                        <input type="text" defaultValue="Prénom"/>
+                        <input type="text" defaultValue="Prénom" onChange={e => setLastName(e.target.value)}/>
                     </div>
 
                     <div className="form_text">
@@ -41,17 +108,19 @@ function Signup() {
                             Email
                             <span>*</span>
                         </h2>
-                        <input type="text"defaultValue="Adresse Mail"/>
+                        <input type="text"defaultValue="Adresse Mail"  onChange={handleEmail}/>
+                        <h2 className='errorHandler'>{emailResp}</h2>
                     </div>
 
                     <div className="form_text">
                         <h2>Mot de passe
                         <span>*</span>
                         </h2>
-                        <input type="text" defaultValue="Mot de passe"/>
+                        <input type="text" defaultValue="Mot de passe"  onChange={e => setPassword(e.target.value)}/>
+                        <h2 className='errorHandler'>{passwordResp}</h2>
                     </div>
 
-                    <button>Inscription</button>
+                    <button onClick={handleClick}>Inscription</button>
                     <h4>
                        Déjà un compte ?            
                         <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} > Connecte-toi</NavLink>

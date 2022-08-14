@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import '../styles/pages/signup.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,7 +19,8 @@ function Login() {
     const [emailResp, setEmailResp] = useState('');
     const [passwordResp, setPasswordResp] = useState('');
 
-    
+    const navigate = useNavigate();
+
     const handleClick = async () => {
         try{
             console.log(JSON.stringify(data));
@@ -29,7 +30,6 @@ function Login() {
                 }).then(resp => {
                     if (resp.data.errors){
                         console.log(resp.data.errors);
-                        console.log("er")
                         const emailResp = resp.data.errors.email;
                         const passwordResp = resp.data.errors.password;
 
@@ -48,10 +48,10 @@ function Login() {
                         console.log(resp.data);
                         setEmailResp(' ');
                         setPasswordResp(' ');
-                    
+                        localStorage.setItem("userId", resp.data.userId);
+                        localStorage.setItem("userToken", resp.data.token);
+                        navigate("/forum");
                     }
-        
-
                 })
         }catch (err) {
             console.log(err);

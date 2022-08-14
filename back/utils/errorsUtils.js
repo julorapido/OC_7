@@ -6,7 +6,7 @@ module.exports.signUpErrors = (err) => {
        errors.email = 'Email incorrect';
    
     if (err.message.includes('password'))
-       errors.password = "Le mot de passe doit faire 6 caracteres minimums"
+       errors.password = "Le mot de passe doit faire 5 caracteres minimums"
    
    if (err.code === 11000 && Object.keys(err.keyValue)[0].includes('email'))
        errors.email = 'Cet email est deja enregitré'
