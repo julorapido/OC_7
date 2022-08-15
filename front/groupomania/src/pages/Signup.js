@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import '../styles/pages/signup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,13 +40,13 @@ function Signup() {
                         const emailResp = resp.data.errors.email;
                         const passwordResp = resp.data.errors.password;
 
-                        if (emailResp.length != 0){
+                        if (emailResp.length !== 0){
                             setEmailResp(resp.data.errors.email);
-                        }else if (emailResp.length == 0){
+                        }else if (emailResp.length === 0){
                             setEmailResp(' ');
                         }
 
-                        if (passwordResp.length == 0 ){
+                        if (passwordResp.length === 0 ){
                             setPasswordResp(' ');
                         }else{
                             setPasswordResp(resp.data.errors.password);
@@ -64,7 +64,7 @@ function Signup() {
     }
     
     const handleEmail = event => {
-        if (/\S+@\S+\.\S+/.test(event.target.value) == true){
+        if (/\S+@\S+\.\S+/.test(event.target.value) === true){
             setEmailResp(' ');
             setEmail(event.target.value);
         }else{
