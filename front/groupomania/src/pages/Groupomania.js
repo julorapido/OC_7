@@ -1,24 +1,26 @@
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import axios from 'axios';
 import MessageCard from "../components/message";
-
+import {useDispatch, useSelector} from "react-redux";
+import { setPostsData } from '../feature/postsSlice';
 function Groupomania() {
-    const [messagesData, setMessagesData] = useState([]);
+    const dispatch = useDispatch()
+    const postsData = useSelector((state) => state.posts.posts);
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/post")
         .then((res) => {
-            setMessagesData(res.data)
+            console.log(res.data);
+            dispatch(setPostsData(res.data));
         }).catch(err => console.log(err))
-    }, [])
+    })
 
-    console.log(messagesData);
 
     return (
         <div>
             <h1>POSTES DE TOUT LE MONDE</h1>
             <div className="cards-container">
-            {messagesData?.map((pic, index) => (
+            {postsData?.map((pic, index) => (
                 <MessageCard key={index} Message={pic} />
             ))}
             </div>
