@@ -15,7 +15,7 @@ function Groupomania() {
     console.log(messagesData);
 
     return (
-        <div className='message_div'>
+        <div>
             <h1>POSTES DE TOUT LE MONDE</h1>
             <div className="cards-container">
             {messagesData?.map((pic, index) => (
