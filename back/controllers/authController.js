@@ -2,6 +2,7 @@ const UserModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const {signUpErrors, signInErrors } = require('../utils/errorsUtils');
 
+
 module.exports.signup = async (req, res) => {
     const {email, password, nom, prenom} = req.body
     try{

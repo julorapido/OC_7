@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
+const jwtAuth = require('./middleware/authMiddleware');
 
 require('dotenv').config({path: './config/.env'});
 require('./config/db');
@@ -30,6 +31,8 @@ app.get('/', function (req, res) {
   res.send('GET request to the homepage');
 }); 
 
+//app.get('*', jwtAuth.checkToken);
+app.post('/api/auth/checktoken', jwtAuth.checkToken);
 app.use('/api/auth', authRoutes);
  
 app.use('/api/post', postRoutes);

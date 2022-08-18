@@ -37,20 +37,8 @@ function Signup() {
                     prenom: data.lastName
                 }).then(resp => {
                     if (resp.data.errors){
-                        const emailResp = resp.data.errors.email;
-                        const passwordResp = resp.data.errors.password;
-
-                        if (emailResp.length !== 0){
-                            setEmailResp(resp.data.errors.email);
-                        }else if (emailResp.length === 0){
-                            setEmailResp(' ');
-                        }
-
-                        if (passwordResp.length === 0 ){
-                            setPasswordResp(' ');
-                        }else{
-                            setPasswordResp(resp.data.errors.password);
-                        }
+                        setEmailResp(resp.data.errors.email);
+                        setPasswordResp(resp.data.errors.password);
                     }else {
                         setEmailResp(' ');
                         setPasswordResp(' ');
@@ -59,7 +47,7 @@ function Signup() {
                     }
                 })    
         }catch(err){
-            
+            console.log(err);
         }
     }
     

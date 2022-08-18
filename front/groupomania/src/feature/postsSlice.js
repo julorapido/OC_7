@@ -9,6 +9,9 @@ export const postsSlice = createSlice({
         setPostsData: (state, {payload}) => {
             state.posts = payload;
         },
+        addPost: (state, {payload}) => {
+            state.posts.push(payload);
+        }
     }
 })
 export const {setPostsData} = postsSlice.actions;

@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import '../styles/pages/signup.css';
 import axios from 'axios';
+import cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 import Fade from 'react-reveal/Fade';
@@ -21,43 +22,31 @@ function Login() {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        cookies.remove("jwt");
+      })
+
     const handleClick = async () => {
         try{
-            console.log(JSON.stringify(data));
-            await axios.post('http://localhost:3000/api/auth/login',  {
+            //console.log(JSON.stringify(data));
+            await axios.post('http://localhost:3000/api/auth/login', {
                     email: data.email ,
                     password: data.password
-                }).then(resp => {
+                    } ).then(resp => {
                     if (resp.data.errors){
                         console.log(resp.data.errors);
-                        const emailResp = resp.data.errors.email;
-                        const passwordResp = resp.data.errors.password;
-
-                        if (emailResp.length !== 0){
-                            setEmailResp(resp.data.errors.email);
-                        }else if (emailResp.length === 0){
-                            setEmailResp(' ');
-                        }
-
-                        if (passwordResp.length === 0 ){
-                            setPasswordResp(' ');
-                        }else{
-                            setPasswordResp(resp.data.errors.password);
-                        }
+                        setEmailResp(resp.data.errors.email);
+                        setPasswordResp(resp.data.errors.password);
                     }else {
-                        console.log(resp.data);
-                        setEmailResp(' ');
-                        setPasswordResp(' ');
+                        cookies.set('jwt', resp.data.token, {expires: 1});
                         localStorage.setItem("userId", resp.data.userId);
-                        localStorage.setItem("userToken", resp.data.token);
-                        navigate("/forum");
+                        window.location = "/forum";
                     }
                 })
         }catch (err) {
             console.log(err);
         }
       }
-
 
     return (
         <>
