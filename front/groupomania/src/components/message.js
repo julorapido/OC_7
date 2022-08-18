@@ -9,15 +9,21 @@ function Message({Message}) {
     const inputElement = useRef();
     const [messageChangedOnce, setMessageChangedOnce] = useState(false);
     const [userData, setUserData] = useState([]);
+    const [loggedUserData, setloggedUserData] = useState([]);
 
     useEffect(() => {
         getUserInfo();
-
-        if (localStorage.getItem("userId") === Message.userId ){
+        console.log(loggedUserData.admin);
+        if ( (localStorage.getItem("userId") === Message.userId)){
             setuserId(true);
         }else{
             setuserId(false);
         }
+
+        if(loggedUserData.admin === true ){
+            setuserId(true)
+        };
+
         if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
     }, [messageModifying, messageValue])
 
@@ -43,10 +49,12 @@ function Message({Message}) {
     
 
     async function getUserInfo(){
-        await axios.get("http://localhost:3000/api/auth/" + Message.userId
-        ).then((resp) => {
-            setUserData(resp.data)
-        }).catch(err => console.log(err))
+        const requestOne = axios.get("http://localhost:3000/api/auth/" + Message.userId);
+        const requestTwo = axios.get("http://localhost:3000/api/auth/" + localStorage.getItem("userId"));
+        axios.all([requestOne, requestTwo]).then((axios.spread((...responses) => {
+            setUserData(responses[0].data);
+            setloggedUserData(responses[1].data);
+        })))
     }
 
     return (

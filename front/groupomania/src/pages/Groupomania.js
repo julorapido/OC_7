@@ -9,6 +9,7 @@ import { setPostsData, addPost } from '../feature/postsSlice';
 function Groupomania() {
     const [userAuth, setuserAuth] = useState(false);
     const [newMessage, setNewMessage] = useState('');
+    const [userData, setUserData] = useState([]);
 
     const dispatch = useDispatch();
     const postsData = useSelector((state) => state.posts.posts);
@@ -46,7 +47,8 @@ function Groupomania() {
 
 
     useEffect(() => {
-        CheckUserAuth()
+        CheckUserAuth();
+        getUserInfo();
         if (userAuth){
             axios.get('http://localhost:3000/api/post/').then(
                 (resp) => {
@@ -58,13 +60,21 @@ function Groupomania() {
     }, [userAuth]);
 
 
+    async function getUserInfo(){
+        await axios.get("http://localhost:3000/api/auth/" + localStorage.getItem("userId")
+        ).then((resp) => {
+            setUserData(resp.data)
+        }).catch(err => console.log(err))
+    }
+
+
     return (
         <>
         <div>
         {userAuth ? (
             <>
                 <div className="post_form">
-                        <h1>ee</h1>
+                        <h1>BIENVENU {userData.nom} {userData.prenom}</h1>
                         <h1>POSTES DE TOUT LE MONDE</h1>
                         <h2>Rédiger un nouveau message</h2>
                         <input type="description" defaultValue="Nouveau message" onChange={e => setNewMessage(e.target.value)}/>
