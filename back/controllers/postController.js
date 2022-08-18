@@ -46,7 +46,7 @@ module.exports.deletePost = async (req, res) => {
 
 }
 
-module.exports.updateSauce = async (req,res) => {
+module.exports.updatePost = async (req,res) => {
 
     if (!req.file){
         try{

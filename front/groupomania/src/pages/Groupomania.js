@@ -5,10 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import cookies from 'js-cookie';
 import { NavLink } from "react-router-dom";
 
-import { setPostsData } from '../feature/postsSlice';
+import { setPostsData, addPost } from '../feature/postsSlice';
 function Groupomania() {
     const [userAuth, setuserAuth] = useState(false);
-    const dispatch = useDispatch()
+    const [newMessage, setNewMessage] = useState('');
+
+    const dispatch = useDispatch();
     const postsData = useSelector((state) => state.posts.posts);
 
     async function CheckUserAuth (){
@@ -17,6 +19,7 @@ function Groupomania() {
                 cookie:cookies.get('jwt').toString()
             }).then((resp) =>{
                 if (resp.status === 200){
+                    localStorage.setItem("userId", resp.data._id)
                     setuserAuth(true);
                 }else{
                     setuserAuth(false);
@@ -26,14 +29,33 @@ function Groupomania() {
             })
     }
 
+
+
+
+    async function handleClick(){
+        console.log("ici");
+        console.log(newMessage);
+        await axios.post('http://localhost:3000/api/post/', {
+            userId: localStorage.getItem("userId") ,
+            description: newMessage
+            } ).then(resp => {
+                console.log(resp);
+                dispatch(addPost(resp.data));
+        }).catch(err => console.log(err))
+    }
+
+
     useEffect(() => {
         CheckUserAuth()
         if (userAuth){
             axios.get('http://localhost:3000/api/post/').then(
-                (resp) => {console.log(resp.data)}
+                (resp) => {
+                    //console.log(resp.data)  
+                    dispatch(setPostsData(resp.data))
+                }
             ).catch(err => console.log(err))
         }
-    })
+    }, [userAuth]);
 
 
     return (
@@ -43,14 +65,17 @@ function Groupomania() {
             <>
                 <div className="post_form">
                         <h1>ee</h1>
+                        <h1>POSTES DE TOUT LE MONDE</h1>
+                        <h2>Rédiger un nouveau message</h2>
+                        <input type="description" defaultValue="Nouveau message" onChange={e => setNewMessage(e.target.value)}/>
+                        <button type='submit' onClick={handleClick}>envoyer</button>
                 </div>
 
                 <div className='fil_messages'>
-                        <h1>POSTES DE TOUT LE MONDE</h1>
                         <div className="cards-container">
-                        {postsData?.map((pic, index) => (
-                            <MessageCard key={index} Message={pic} />
-                        ))}
+                            {postsData?.map((pic, index) => (
+                                <MessageCard key={index} Message={pic} />
+                            )).reverse()}
                         </div>
                 </div>
         </>
