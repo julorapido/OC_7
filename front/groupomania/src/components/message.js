@@ -8,30 +8,30 @@ function Message({Message}) {
     const [messageValue, setMessageValue] = useState('');
     const inputElement = useRef();
     const [messageChangedOnce, setMessageChangedOnce] = useState(false);
+    const [userData, setUserData] = useState([]);
 
     useEffect(() => {
+        getUserInfo();
+
         if (localStorage.getItem("userId") === Message.userId ){
             setuserId(true);
         }else{
             setuserId(false);
         }
-
-        if(messageValue.length === 0){
-            setMessageChangedOnce(false)
-        }else{
-            setMessageChangedOnce(true) 
-        }
+        if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
     }, [messageModifying, messageValue])
+
 
     function handlemodify(){
         if (messageModifying === true){
-            setMessageModifying(false);
-        }else {
-            setMessageModifying(true);
-        }
+            setMessageModifying(false);}
+        else {
+            setMessageModifying(true);}
     }
 
-     function postModifiedmessage(){
+
+
+    function postModifiedmessage(){
         setMessageModifying(false);
         setMessageValue(inputElement.current.value);
         const data = {
@@ -40,7 +40,15 @@ function Message({Message}) {
         }
          axios.put("http://localhost:3000/api/post/" + Message._id, data);
     }
-    //console.log(Message);
+    
+
+    async function getUserInfo(){
+        await axios.get("http://localhost:3000/api/auth/" + Message.userId
+        ).then((resp) => {
+            setUserData(resp.data)
+        }).catch(err => console.log(err))
+    }
+
     return (
         <div className='message_div'>
             <>
@@ -58,7 +66,7 @@ function Message({Message}) {
                 <div>
                     <input 
                         ref={inputElement}
-                        defaultValue={Message.description}
+                        defaultValue={messageChangedOnce ? messageValue : Message.description }
                         autoFocus
                     />
                     <button onClick={ () => postModifiedmessage()}>confirmer</button>
@@ -68,7 +76,7 @@ function Message({Message}) {
                 <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
             )
             }
-            <h1>Message de {Message.userId}</h1>
+            <h1>Message de {userData.nom}</h1>
             <h4>Crée le : {Message.createdAt}</h4>
             <h6>ID DU MESSAGE : {Message._id}</h6>
         </div>

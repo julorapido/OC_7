@@ -52,3 +52,13 @@ module.exports.getUserCount = async (req,res) => {
     })
      
 }
+
+module.exports.getSpecificUser = async (req, res) => {
+
+    try {
+            const User = await UserModel.findById(req.params.id);
+                    return res.status(201).json(User);
+            }catch(err){
+                    return res.status(400).send(err);
+            }
+}
