@@ -1,8 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap");
 * {
   font-family: "Lato", sans-serif;
   text-decoration: none;
+}
+
+.message_div {
+  background-color: gray;
+  margin-left: auto;
+  margin-right: auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: white;
 }
 
 * {
@@ -47,8 +57,25 @@ body {
   font-weight: 300;
   color: #4E5166;
 }
+.parent .left .linktopage {
+  transition: 0.3s;
+}
+.parent .left .linktopage:hover {
+  transform: translateX(4px);
+}
+.parent .left .titles {
+  margin-top: 13px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
 .parent .left .titles span {
+  text-shadow: 20Px 20px;
   color: #FD2D01;
+  font-size: 30px;
+}
+.parent .left .titles .insc_title {
+  word-spacing: 0.7rem;
 }
 .parent .left .titles .title_icon {
   width: 70px;
@@ -98,6 +125,9 @@ body {
   font-size: 16px;
   font-weight: 600;
 }
+.parent .left .form .form_text .errorHandler {
+  color: #FD2D01;
+}
 .parent .left .form .form_text input {
   font-size: 16px;
   border-radius: 15px;
@@ -140,14 +170,24 @@ body {
 .parent .right img {
   width: 100%;
   height: 100%;
+  min-height: 700px;
   -o-object-fit: contain;
      object-fit: contain;
   aspect-ratio: 1/1;
+}
+.parent .right_two {
+  background-color: #ffcdd2;
 }
 
 @media screen and (max-width: 1224px) {
   .parent {
     width: 90%;
+  }
+  .titles h3:before {
+    display: none !important;
+  }
+  .titles h3:after {
+    display: none !important;
   }
 }
 /* LAPTOP */
@@ -164,14 +204,6 @@ body {
   }
   .titles h3 {
     font-size: 14px !important;
-  }
-  .titles h3:before {
-    top: 0.6rem !important;
-    width: 22% !important;
-  }
-  .titles h3:after {
-    top: -0.5rem !important;
-    width: 20% !important;
   }
   .form_text input {
     font-size: 15px !important;
@@ -195,7 +227,7 @@ body {
     flex-direction: column !important;
   }
   .titles h3 {
-    font-size: 11px !important;
-    display: none !important;
+    font-size: 13px !important;
+    display: block !important;
   }
 }/*# sourceMappingURL=styles.css.map */

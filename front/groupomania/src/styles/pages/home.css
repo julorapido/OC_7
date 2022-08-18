@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700&family=Shrikhand&display=swap");
+* {
+  font-family: "Lato", sans-serif;
+  text-decoration: none;
+}
+
+.home_div {
+  height: 90vh;
+  margin: auto;
+  max-height: 90vh;
+  margin-top: 30px;
+  width: 92%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 25px;
+  text-align: center;
+}
+.home_div .image {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.home_div .image .home_template {
+  width: 90%;
+  max-height: 95%;
+  border-radius: 30px;
+  box-shadow: 4px 4px 0px rgb(174, 48, 48);
+  border: 2px solid rgb(174, 48, 48);
+  transition: 0.7s;
+}
+.home_div .image .home_template:hover {
+  transform: translateX(-5px);
+  box-shadow: 0px 0px 0px rgb(174, 48, 48);
+}
+.home_div .groupomania_logo {
+  border-bottom: 2px solid black;
+  padding-bottom: 25px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-top: 40px;
+  width: 210px;
+}
+.home_div .content {
+  transition: 0.3s;
+  background-color: #FFD7D7;
+  border: 2px solid #e4b2b2;
+  box-shadow: 5px 5px 0px #e4b2b2;
+  border-radius: 10px;
+  color: #292929;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 15px;
+  margin-top: auto;
+  width: 80%;
+  margin-bottom: auto;
+}
+.home_div .content h1 {
+  margin-top: 30px;
+  font-weight: 900;
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke: 1px black;
+  text-shadow: 1px 2px 0px black;
+  font-size: 35px;
+}
+.home_div .content h2 {
+  color: white;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-radius: 20px;
+  background-color: #e4b2b2;
+}
+.home_div .content h3 {
+  font-weight: 400;
+  font-size: 22px;
+}
+.home_div .content span {
+  color: #FD2D01;
+  font-weight: 700;
+}
+.home_div .content h4 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 17px;
+}
+.home_div .content h4:before {
+  content: "";
+  display: block;
+  width: 33%;
+  height: 2px;
+  background: black;
+  right: 0;
+  top: 0.7rem;
+  margin-right: 20px;
+  position: relative;
+}
+.home_div .content h4:after {
+  content: "";
+  display: block;
+  width: 33%;
+  height: 2px;
+  background: black;
+  right: 0;
+  margin-left: 20px;
+  top: 0.7rem;
+  position: relative;
+}
+.home_div .content h5 {
+  font-weight: 300;
+  font-size: 15px;
+}
+.home_div .content button {
+  width: 80%;
+  padding: 15px;
+  font-size: 18px;
+  background-color: #FD2D01;
+  border: 2px solid rgb(174, 48, 48);
+  border-radius: 15px;
+  box-shadow: 4px 4px 0px rgb(174, 48, 48);
+  transition: 0.3s;
+  word-spacing: 1px;
+  color: white;
+}
+.home_div .content button:hover {
+  box-shadow: -0.5px 0.5px 0px rgb(174, 48, 48);
+  transform: translateY(3px);
+  border-radius: 22px;
+}
+.home_div .content .btn-2 {
+  background-color: rgb(255, 201, 201);
+  color: rgb(174, 48, 48);
+}
+.home_div .content:hover {
+  box-shadow: 0px 0px 0px #e4b2b2;
+  transform: translateX(1px);
+}
+
+@media screen and (max-width: 375px) {
+  .groupomania_logo {
+    border-bottom: 0px solid !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .home_div {
+    display: flex;
+    flex-direction: column;
+  }
+  .home_div .image {
+    margin-left: initial;
+  }
+  .home_div .content {
+    margin: auto;
+  }
+  .home_template {
+    margin-top: 3vh !important;
+  }
+  .content {
+    order: -1;
+  }
+}/*# sourceMappingURL=home.css.map */

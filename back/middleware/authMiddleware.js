@@ -9,7 +9,7 @@ module.exports.checkToken = async (req, res) => {
                 return res.status(401).send(err);
             }else {
                 let user = await UserModel.findById(decodedToken.userId);
-                console.log(decodedToken.userId);
+                //console.log(decodedToken.userId);
                 return res.status(200).json(user);
             }
         })

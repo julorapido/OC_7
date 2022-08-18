@@ -16,7 +16,6 @@ function Groupomania() {
             'http://localhost:3000/api/auth/checktoken',{
                 cookie:cookies.get('jwt').toString()
             }).then((resp) =>{
-                console.log(resp);
                 if (resp.status === 200){
                     setuserAuth(true);
                 }else{
@@ -28,8 +27,12 @@ function Groupomania() {
     }
 
     useEffect(() => {
-        console.log(cookies.get('jwt'));
-        CheckUserAuth();
+        CheckUserAuth()
+        if (userAuth){
+            axios.get('http://localhost:3000/api/post/').then(
+                (resp) => {console.log(resp.data)}
+            ).catch(err => console.log(err))
+        }
     })
 
 
@@ -53,8 +56,9 @@ function Groupomania() {
         </>
         ):(
                 <div>
+                    
                     Veuillez vous connecter pour pouvoir consulter le forum 
-                    <NavLink exact to="/login" style={{ textDecoration: 'none'}} > Connecte-toi</NavLink>
+                    <NavLink exact to="/login" style={{ textDecoration: 'none'}} > En cliquant ici </NavLink>
 
                 </div>
             )
