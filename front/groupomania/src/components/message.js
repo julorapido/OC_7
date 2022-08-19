@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React from 'react'
-import {useEffect, useState, useRef} from 'react'
+import React from 'react';
+import {useEffect, useState, useRef} from 'react';
+import {dateParser} from'./utils';
 
 function Message({Message}) {
+
     const [userId, setuserId] = useState(false);
     const [messageModifying, setMessageModifying] = useState(false);
     const [messageValue, setMessageValue] = useState('');
@@ -11,6 +13,7 @@ function Message({Message}) {
     const [userData, setUserData] = useState([]);
     const [loggedUserData, setloggedUserData] = useState([]);
     const [messageDeleted, setMessageDeleted] = useState(false);
+    const date = dateParser(Message.createdAt);
     useEffect(() => {
         getUserInfo();
         if ( (localStorage.getItem("userId") === Message.userId)){
@@ -84,8 +87,10 @@ function Message({Message}) {
                     <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
                 )
                 }
+                <img src={userData.imageUrl}/>
                 <h1>Message de {userData.nom}</h1>
-                <h4>Crée le : {Message.createdAt}</h4>
+                <h4>Crée le : {date}</h4>
+                <h4>Likes {Message.likes}</h4>
                 <h6>ID DU MESSAGE : {Message._id}</h6>
                 <>
                 {userId ? (

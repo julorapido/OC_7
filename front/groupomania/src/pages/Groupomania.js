@@ -34,8 +34,6 @@ function Groupomania() {
 
 
     async function handleClick(){
-        console.log("ici");
-        console.log(newMessage);
         await axios.post('http://localhost:3000/api/post/', {
             userId: localStorage.getItem("userId") ,
             description: newMessage
@@ -78,7 +76,8 @@ function Groupomania() {
                         <h1>POSTES DE TOUT LE MONDE</h1>
                         <h2>Rédiger un nouveau message</h2>
                         <input type="description" defaultValue="Nouveau message" onChange={e => setNewMessage(e.target.value)}/>
-                        <button type='submit' onClick={handleClick}>envoyer</button>
+                        <input type="file" name="messagePicture" accept="image/png, image/jpeg" title=''/>
+                        <button type='submit'name='submit' onClick={handleClick}>envoyer</button>
                 </div>
 
                 <div className='fil_messages'>

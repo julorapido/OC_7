@@ -6,4 +6,7 @@
   width: -moz-max-content;
   width: max-content;
   color: white;
+}
+.message_div img {
+  width: 100px;
 }/*# sourceMappingURL=post.css.map */

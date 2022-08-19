@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import '../styles/pages/signup.css';
 import axios from 'axios';
 import cookies from 'js-cookie';
@@ -20,7 +20,6 @@ function Login() {
     const [emailResp, setEmailResp] = useState('');
     const [passwordResp, setPasswordResp] = useState('');
 
-    const navigate = useNavigate();
 
     useEffect(() => {
         cookies.remove("jwt");
