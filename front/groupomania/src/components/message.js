@@ -10,10 +10,9 @@ function Message({Message}) {
     const [messageChangedOnce, setMessageChangedOnce] = useState(false);
     const [userData, setUserData] = useState([]);
     const [loggedUserData, setloggedUserData] = useState([]);
-
+    const [messageDeleted, setMessageDeleted] = useState(false);
     useEffect(() => {
         getUserInfo();
-        console.log(loggedUserData.admin);
         if ( (localStorage.getItem("userId") === Message.userId)){
             setuserId(true);
         }else{
@@ -25,7 +24,7 @@ function Message({Message}) {
         };
 
         if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
-    }, [messageModifying, messageValue])
+    }, [messageModifying, messageValue, loggedUserData])
 
 
     function handlemodify(){
@@ -37,7 +36,7 @@ function Message({Message}) {
 
 
 
-    function postModifiedmessage(){
+    function postModifiedMessage(){
         setMessageModifying(false);
         setMessageValue(inputElement.current.value);
         const data = {
@@ -47,48 +46,62 @@ function Message({Message}) {
          axios.put("http://localhost:3000/api/post/" + Message._id, data);
     }
     
+    function handleDelete(){
+        setMessageDeleted(true);
+        axios.delete("http://localhost:3000/api/post/" + Message._id);
+    }
+
 
     async function getUserInfo(){
         const requestOne = axios.get("http://localhost:3000/api/auth/" + Message.userId);
         const requestTwo = axios.get("http://localhost:3000/api/auth/" + localStorage.getItem("userId"));
-        axios.all([requestOne, requestTwo]).then((axios.spread((...responses) => {
+        await axios.all([requestOne, requestTwo]).then((axios.spread((...responses) => {
             setUserData(responses[0].data);
             setloggedUserData(responses[1].data);
         })))
     }
 
     return (
+        <>
+        {messageDeleted ?
+         (<></>)
+        : (<>
+            
         <div className='message_div'>
-            <>
-            {userId ? (
+
+                {messageModifying ? (
+                    <>
+                    <div>
+                        <input 
+                            ref={inputElement}
+                            defaultValue={messageChangedOnce ? messageValue : Message.description }
+                            autoFocus
+                        />
+                        <button onClick={ () => postModifiedMessage()}>confirmer</button>
+                    </div>
+                    </>
+                ) : (
+                    <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
+                )
+                }
+                <h1>Message de {userData.nom}</h1>
+                <h4>Crée le : {Message.createdAt}</h4>
+                <h6>ID DU MESSAGE : {Message._id}</h6>
                 <>
-                    <button onClick={handlemodify}>MODIFIER</button>
+                {userId ? (
+                    <>
+                        <button onClick={handlemodify}>MODIFIER</button>
+                        <button onClick={handleDelete}>SUPPRIMER</button>
+                    </>
+                ):(
+                    <>  
+                    </>
+                )}
                 </>
-            ):(
-                <>  
-                </>
-            )}
-            </>
-            {messageModifying ? (
-                <>
-                <div>
-                    <input 
-                        ref={inputElement}
-                        defaultValue={messageChangedOnce ? messageValue : Message.description }
-                        autoFocus
-                    />
-                    <button onClick={ () => postModifiedmessage()}>confirmer</button>
-                </div>
-                </>
-            ) : (
-                <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
-            )
-            }
-            <h1>Message de {userData.nom}</h1>
-            <h4>Crée le : {Message.createdAt}</h4>
-            <h6>ID DU MESSAGE : {Message._id}</h6>
-        </div>
-        
+        </div>     
+        </>)}
+
+        </>
     )
 }
 
