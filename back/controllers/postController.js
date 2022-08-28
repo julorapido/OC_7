@@ -13,12 +13,14 @@ module.exports.getAllPosts = (req, res) => {
 
 
 module.exports.createNewPost = async (req ,res) => {
-    console.log(req.body);
+
+
     const newPost = new PostModel({
         userId:  req.body.userId,
         description:  req.body.description,
-     //   imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
+        imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
     })
+
     try{
         const postSave = await newPost.save();
         return res.status(201).json(postSave);

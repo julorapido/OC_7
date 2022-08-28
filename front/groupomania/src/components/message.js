@@ -2,6 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import Fade from 'react-reveal/Fade';
 
 function Message({Message}) {
 
@@ -13,8 +16,18 @@ function Message({Message}) {
     const [userData, setUserData] = useState([]);
     const [loggedUserData, setloggedUserData] = useState([]);
     const [messageDeleted, setMessageDeleted] = useState(false);
-    const date = dateParser(Message.createdAt);
+    const [randomClass, setRandomClass] = useState(false);
+
+
+
+    const randInt = Math.floor(Math.random() * 3);
+
+    const date = dateParser(Message.createdAt, true);
     useEffect(() => {
+        if (randInt === 1){
+            setRandomClass(true);
+            console.log("left");
+        }
         getUserInfo();
         if ( (localStorage.getItem("userId") === Message.userId)){
             setuserId(true);
@@ -27,7 +40,7 @@ function Message({Message}) {
         };
 
         if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
-    }, [messageModifying, messageValue, loggedUserData])
+    }, [messageValue])
 
 
     function handlemodify(){
@@ -69,9 +82,23 @@ function Message({Message}) {
         {messageDeleted ?
          (<></>)
         : (<>
-            
-        <div className='message_div'>
+                                <Fade bottom>
 
+        <div className='message_div'>
+                {randomClass ? (
+                        <div className="top_msg left">
+                            <h1>Message de {userData.nom}</h1>  
+                            <img src={userData.imageUrl}/>
+                        </div>
+                 
+                ) : (
+                    <div className="top_msg right">
+                        <h1>Message de {userData.nom}</h1>  
+                          <img src={userData.imageUrl}/>
+                     </div>
+                )}
+        
+       
                 {messageModifying ? (
                     <>
                     <div>
@@ -84,14 +111,17 @@ function Message({Message}) {
                     </div>
                     </>
                 ) : (
+                    <div>
                     <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
+                    <img src={Message.imageUrl}/>
+                    </div>
                 )
                 }
-                <img src={userData.imageUrl}/>
-                <h1>Message de {userData.nom}</h1>
-                <h4>Crée le : {date}</h4>
-                <h4>Likes {Message.likes}</h4>
-                <h6>ID DU MESSAGE : {Message._id}</h6>
+                <div className="bottom_msg">
+                    <h2>Le {date}</h2>
+                    <h3>{Message.likes} <FontAwesomeIcon icon={faThumbsUp} /> </h3>
+                </div>
+
                 <>
                 {userId ? (
                     <>
@@ -103,8 +133,12 @@ function Message({Message}) {
                     </>
                 )}
                 </>
-        </div>     
-        </>)}
+        </div>   
+        </Fade>
+  
+        </>)
+        
+        }
 
         </>
     )

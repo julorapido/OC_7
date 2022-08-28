@@ -15,6 +15,7 @@ const corsOptions = {
   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
   'preflightContinue': false
 }
+
 app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
 

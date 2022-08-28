@@ -1,12 +1,47 @@
 .message_div {
-  background-color: gray;
   margin-left: auto;
   margin-right: auto;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  color: white;
+  width: 60%;
+  margin-top: 50px;
+  color: rgb(42, 42, 42);
 }
 .message_div img {
   width: 100px;
+}
+.message_div .top_msg {
+  box-sizing: border-box;
+  background-color: rgb(207, 207, 207);
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  border-radius: 20px 20px 0px 0px;
+}
+.message_div .top_msg img {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  margin-left: 30px;
+  margin-top: 8px;
+}
+.message_div .left {
+  justify-content: end;
+  background-color: red;
+}
+.message_div .right {
+  flex-direction: row-reverse;
+  justify-content: start;
+  background-color: rgb(209, 108, 108);
+}
+.message_div .bottom_msg {
+  background-color: rgb(207, 207, 207);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 0px 0px 20px 20px;
+}
+.message_div .bottom_msg h2 {
+  float: left;
+}
+.message_div .bottom_msg h3 {
+  float: right;
 }/*# sourceMappingURL=post.css.map */
