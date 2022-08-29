@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import axios from 'axios';
 import MessageCard from "../components/message";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,14 +8,15 @@ import '../styles/pages/forum.css'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-solid-svg-icons'
+import { faImages, faEarthAmerica, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import Fade from 'react-reveal/Fade';
 
 function Groupomania() {
     const [userAuth, setuserAuth] = useState(false);
     const [newMessage, setNewMessage] = useState('');
     const [userData, setUserData] = useState([]);
-
+    const inputFile = useRef(null);
+    const [fileName, setFileName] = useState([]);
     const [memberClicked, setMemberClicked] = useState(false);
 
     const dispatch = useDispatch();
@@ -40,15 +41,22 @@ function Groupomania() {
     }
 
     const handlePicture = (e)=> {
-       //setPostPicture(URL.createObjectURL(e.target.files[0]));
         setFile(e.target.files[0]);
+        const data = {
+            photo : file
+        }
+        //console.log(data.photo.file);
+        //setFileName(data.photo);
     }
     async function handleClick(){
-        console.log(file);
+
         const form = new FormData();
+
+        if (file){
+            form.append('image', file, 'image.png');
+        }
         form.append('userId', localStorage.getItem("userId").toString());
-        form.append('description', 'dff');
-        form.append('image', file, 'image.png');
+        form.append('description', newMessage);
         const data = {};
         form.forEach((value, key) => (
             data[key] = value
@@ -114,12 +122,12 @@ function Groupomania() {
                             <h1>Groupomania</h1>
                             <h2>Membre depuis le {date} </h2>
                         </div>
-                        <h1>Communauté Groupomania</h1>
-                         <h2>Communauté * 112 Membres</h2>
+                        <h1>Communauté Groupomania <FontAwesomeIcon icon={faEarthAmerica} /> </h1>
+                         <h2>Communauté publique * 112 Membres</h2>
 
                          <div className="bottom_title">
-                            <h1 onClick={turnOff} className={memberClicked ? "navclicked" : ''}>Forum</h1>
-                            <h1 onClick={turnOn} className={memberClicked ? "navclicked" : ''}>Membres</h1>
+                            <h1 onClick={turnOff} className={memberClicked ? "" : "navclicked"}>Forum</h1>
+                            <h1 onClick={turnOn} className={memberClicked ? "navclicked" : ""}>Membres</h1>
                          </div>
                     </div>
 
@@ -129,7 +137,9 @@ function Groupomania() {
                         <div className="newpost">
 
                             <div className="left">
-                                <img src={userData.imageUrl}/>
+                                <div className="imgdiv">
+                                    <img src={userData.imageUrl}/>
+                                </div>
                             </div>
 
                             <Fade clear>
@@ -141,9 +151,12 @@ function Groupomania() {
                                 </div>
 
                                 <div className="bottom">
-                                    <FontAwesomeIcon icon={faImage} />
-                                    <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => handlePicture(e)} className="img_upload"/>
-                                    <button type='submit'name='submit' onClick={handleClick}>envoyer</button>
+                                    <div className="imgbtn">
+                                        <h3 onClick={() => inputFile.current.click()} ><FontAwesomeIcon icon={faImages}  className="img_font"/> Image</h3>
+                                        <h3>e</h3>
+                                    </div>
+                                    <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => handlePicture(e)} ref={inputFile}/>
+                                    <button type='submit'name='submit' onClick={handleClick}>Envoyer   <FontAwesomeIcon icon={faPaperPlane} /></button>
                                 </div>
                             </div>
                             </Fade>

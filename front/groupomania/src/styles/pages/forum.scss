@@ -46,10 +46,11 @@ body, .wholepage{
         }
         h2{
             color: $home-darkgrey;
-            font-size: 15px;
+            font-size: 18px;
             padding-bottom: 20px;
-            margin-top: -10px;
+            margin-top: -5px;
             padding-left: 2px;
+            font-weight: 400;
         }
 
     .top_title{
@@ -79,7 +80,7 @@ body, .wholepage{
             display: flex;
             color: $home-darkgrey;
             flex-direction: row;
-            border-top: 2px solid $home-grey;
+            border-top: 3.5px solid $home-grey;
             h1{
                 margin-bottom: 0px;
                 font-size: 19px;
@@ -88,8 +89,15 @@ body, .wholepage{
                 transition: 0.35s;
                 border-bottom: 3px solid white;
             }
+            .navclicked{
+                border-bottom: 3px solid $color-1;
+
+            }
         }
         .bottom_title >h1:hover{
+            .navclicked{
+                border-bottom: 3px solid white;
+            }
             color: black;
             transform: translateX(1px);
             border-bottom: 3px solid $color-1;
@@ -103,47 +111,105 @@ body, .wholepage{
         margin-left: auto;
         background-color: white;
         margin-right: auto;
-        padding: 5px;
+        padding: 10px;
         border-radius: 20px;
-        width: 98%;
+        width: 96%;
+
         .left{
+            padding-left: 15px;
+            display: block;
+            .imgdiv{
+                position: relative;
+                top: 15%;
+            }
             img{
-                width: 90px;
+                width: 80px;
+                margin-top: auto;
+                margin-bottom: auto;
                 border-radius: 20px;
             }
             width: max-content;
         }
 
         .right{
+            margin-top: 25px;
             margin-left: 35px;
             width: 100%;
-            display: flex;
+            display: inline-block;
             flex-direction: column;
             justify-content: space-around;
+            vertical-align: middle;
+            height: max-content;
+            align-items: center;
             .top{
                 margin-left: 0px;
-                .desc_input{
-                    margin-left: 0px;
-                    width: 100%;
-                    padding: 10px;
-                    font-size: 20px;
-                }
+                background-color: transparent;
+                    .desc_input{
+                        margin-left: 0px;
+                        width: 95%;
+                        padding: 15px;
+                        border-radius: 13px;
+                        border: 2px solid white;
+                        background-color: $home-grey;
+                        font-size: 18px;
+                        color: $home-darkgrey;
+                    }
             }
 
             .bottom{
-                background-color: lightblue;
-            
-                .img_upload{
-                    color: transparent;
-                }
+                width: 97%;
+                font-size: 26px;
+                display: flex;
+                flex-direction: row;
+                height: max-content;
+                justify-content: space-between;
+                    button{
+                        background-color: $color-1;
+                        color: white;
+                        padding: 15px;
+                        height: max-content;
+                        margin-top: 10px;
+                        font-size: 17px;
+                        float: right;
+                        border: 0px solid;
+                        border-radius: 15px;
+                        box-shadow: 5px 5px 0px $color-2;
+                        transition: 0.35s;
+                    }
+                    button:hover{
+                        box-shadow: 0px 0px 0px $color-2;
+                        transform: translateX(-5px);
+                    }
+                    .imgbtn{
+                        margin-left: 7px;
+                        margin-top: auto;
+                        transition: 0.3s;
+                        word-spacing: 10px;
+                        color: $home-darkgrey;
+                    }
+                    .imgbtn:hover{
+                        transform: translateX(4px);
+                        color: black;
+                    }
+                    h3{
+                        transition: 0.4s;
+                        font-weight: 400;
+                        width: max-content;
+                        font-size: 22px;
+                    }
+                    input{
+                        display: none;
+                    }
             }
          }
     }
 
 }
 .fil_messages{
-    background-color: rgb(228, 228, 228) !important;
-    width: 59%;
+    margin-top: -20px;
+    background-color: $home-grey !important;
+    padding: 30px;
+    width: 55%;
     margin-left: auto;
     margin-right: auto;
 }

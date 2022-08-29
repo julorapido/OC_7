@@ -50,11 +50,12 @@ body, .wholepage {
   margin-left: 40px;
 }
 .post_form .top h2 {
-  color: rgb(112, 112, 112);
-  font-size: 15px;
+  color: rgb(118, 118, 118);
+  font-size: 18px;
   padding-bottom: 20px;
-  margin-top: -10px;
+  margin-top: -5px;
   padding-left: 2px;
+  font-weight: 400;
 }
 .post_form .top .top_title {
   display: flex;
@@ -73,16 +74,16 @@ body, .wholepage {
   margin-top: -45px !important;
 }
 .post_form .top .top_title h2 {
-  color: rgb(112, 112, 112);
+  color: rgb(118, 118, 118);
   margin-left: 10px;
   font-size: 14px;
   margin-top: 10px;
 }
 .post_form .top .bottom_title {
   display: flex;
-  color: rgb(112, 112, 112);
+  color: rgb(118, 118, 118);
   flex-direction: row;
-  border-top: 2px solid rgb(237, 239, 245);
+  border-top: 3.5px solid rgb(237, 239, 245);
 }
 .post_form .top .bottom_title h1 {
   margin-bottom: 0px;
@@ -92,10 +93,16 @@ body, .wholepage {
   transition: 0.35s;
   border-bottom: 3px solid white;
 }
+.post_form .top .bottom_title .navclicked {
+  border-bottom: 3px solid #FD2D01;
+}
 .post_form .top .bottom_title > h1:hover {
   color: black;
   transform: translateX(1px);
   border-bottom: 3px solid #FD2D01;
+}
+.post_form .top .bottom_title > h1:hover .navclicked {
+  border-bottom: 3px solid white;
 }
 .post_form .newpost {
   margin-top: 50px;
@@ -104,45 +111,111 @@ body, .wholepage {
   margin-left: auto;
   background-color: white;
   margin-right: auto;
-  padding: 5px;
+  padding: 10px;
   border-radius: 20px;
-  width: 98%;
+  width: 96%;
 }
 .post_form .newpost .left {
+  padding-left: 15px;
+  display: block;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
+.post_form .newpost .left .imgdiv {
+  position: relative;
+  top: 15%;
+}
 .post_form .newpost .left img {
-  width: 90px;
+  width: 80px;
+  margin-top: auto;
+  margin-bottom: auto;
   border-radius: 20px;
 }
 .post_form .newpost .right {
+  margin-top: 25px;
   margin-left: 35px;
   width: 100%;
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   justify-content: space-around;
+  vertical-align: middle;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  align-items: center;
 }
 .post_form .newpost .right .top {
   margin-left: 0px;
+  background-color: transparent;
 }
 .post_form .newpost .right .top .desc_input {
   margin-left: 0px;
-  width: 100%;
-  padding: 10px;
-  font-size: 20px;
+  width: 95%;
+  padding: 15px;
+  border-radius: 13px;
+  border: 2px solid white;
+  background-color: rgb(237, 239, 245);
+  font-size: 18px;
+  color: rgb(118, 118, 118);
 }
 .post_form .newpost .right .bottom {
-  background-color: lightblue;
+  width: 97%;
+  font-size: 26px;
+  display: flex;
+  flex-direction: row;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  justify-content: space-between;
 }
-.post_form .newpost .right .bottom .img_upload {
-  color: transparent;
+.post_form .newpost .right .bottom button {
+  background-color: #FD2D01;
+  color: white;
+  padding: 15px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-top: 10px;
+  font-size: 17px;
+  float: right;
+  border: 0px solid;
+  border-radius: 15px;
+  box-shadow: 5px 5px 0px #FFD7D7;
+  transition: 0.35s;
+}
+.post_form .newpost .right .bottom button:hover {
+  box-shadow: 0px 0px 0px #FFD7D7;
+  transform: translateX(-5px);
+}
+.post_form .newpost .right .bottom .imgbtn {
+  margin-left: 7px;
+  margin-top: auto;
+  transition: 0.3s;
+  word-spacing: 10px;
+  color: rgb(118, 118, 118);
+}
+.post_form .newpost .right .bottom .imgbtn:hover {
+  transform: translateX(4px);
+  color: black;
+}
+.post_form .newpost .right .bottom h3 {
+  transition: 0.4s;
+  font-weight: 400;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 22px;
+}
+.post_form .newpost .right .bottom input {
+  display: none;
 }
 
 .fil_messages {
-  background-color: rgb(228, 228, 228) !important;
-  width: 59%;
+  margin-top: -20px;
+  background-color: rgb(237, 239, 245) !important;
+  padding: 30px;
+  width: 55%;
   margin-left: auto;
   margin-right: auto;
 }/*# sourceMappingURL=forum.css.map */

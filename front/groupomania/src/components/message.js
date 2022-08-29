@@ -3,7 +3,7 @@ import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 
 function Message({Message}) {
@@ -20,11 +20,11 @@ function Message({Message}) {
 
 
 
-    const randInt = Math.floor(Math.random() * 3);
+    const randInt = Math.floor(Math.random() * 4);
 
     const date = dateParser(Message.createdAt, true);
     useEffect(() => {
-        if (randInt === 1){
+        if (randInt === 1 || randInt === 3){
             setRandomClass(true);
             console.log("left");
         }
@@ -101,38 +101,46 @@ function Message({Message}) {
        
                 {messageModifying ? (
                     <>
-                    <div>
+                    <div className='mid_msg'>
                         <input 
                             ref={inputElement}
                             defaultValue={messageChangedOnce ? messageValue : Message.description }
                             autoFocus
                         />
                         <button onClick={ () => postModifiedMessage()}>confirmer</button>
+                        <div className="imgdiv">
+                            <img src={Message.imageUrl}/>
+                        </div>
                     </div>
                     </>
                 ) : (
                     <div className='mid_msg'>
-                    <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
-                    <img src={Message.imageUrl}/>
+                        <h2>{messageChangedOnce ? messageValue : Message.description }</h2>
+                        <div className="imgdiv">
+                            <img src={Message.imageUrl}/>
+                        </div>
                     </div>
                 )
                 }
                 <div className="bottom_msg">
                     <h2>Le {date}</h2>
                     <h3>{Message.likes} <FontAwesomeIcon icon={faThumbsUp} /> </h3>
+
+                    <>
+                        {userId ? (
+                            <>
+                                <button onClick={handlemodify}>MODIFIER <FontAwesomeIcon icon={faPenToSquare} /> </button>
+                                <button onClick={handleDelete}>SUPPRIMER <FontAwesomeIcon icon={faTrashCan} /> </button>
+                            </>
+                        ):(
+                            <>  
+                            </>
+                        )}
+                    </>
+
                 </div>
 
-                <>
-                {userId ? (
-                    <>
-                        <button onClick={handlemodify}>MODIFIER</button>
-                        <button onClick={handleDelete}>SUPPRIMER</button>
-                    </>
-                ):(
-                    <>  
-                    </>
-                )}
-                </>
+
         </div>   
         </Fade>
   
