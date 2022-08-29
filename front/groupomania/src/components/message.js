@@ -111,7 +111,7 @@ function Message({Message}) {
                     </div>
                     </>
                 ) : (
-                    <div>
+                    <div className='mid_msg'>
                     <h2>Desc : {messageChangedOnce ? messageValue : Message.description }</h2>
                     <img src={Message.imageUrl}/>
                     </div>

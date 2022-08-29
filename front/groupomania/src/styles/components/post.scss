@@ -1,8 +1,8 @@
 .message_div{
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
-    margin-top: 50px;
+    width: 100%;
+    margin-top: 70px;
     color: rgb(42, 42, 42);
     img{
         width: 100px;
@@ -10,7 +10,7 @@
 
     .top_msg{
         box-sizing: border-box;
-        background-color: rgb(207, 207, 207);
+        background-color: rgb(255, 255, 255);
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -32,9 +32,11 @@
         justify-content: start;
         background-color: rgb(209, 108, 108);
     }
-
+    .mid_msg{
+        background-color: white;
+    }
     .bottom_msg{
-        background-color: rgb(207, 207, 207);
+        background-color: rgb(255, 255, 255);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
