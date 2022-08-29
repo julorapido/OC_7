@@ -114,7 +114,10 @@ body, .wholepage{
         padding: 10px;
         border-radius: 20px;
         width: 96%;
-
+        border-bottom: 6px solid $home-grey;
+        border-left: 2px solid $home-grey;
+        border-right: 2px solid $home-grey;
+        transition: 0.3s;
         .left{
             padding-left: 15px;
             display: block;
@@ -202,6 +205,11 @@ body, .wholepage{
                     }
             }
          }
+    }
+    .newpost:hover{
+        border-bottom: 6px solid $home-semigrey;
+        border-left: 2px solid $home-semigrey;
+        border-right: 2px solid $home-semigrey;
     }
 
 }

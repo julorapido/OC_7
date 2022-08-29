@@ -114,6 +114,10 @@ body, .wholepage {
   padding: 10px;
   border-radius: 20px;
   width: 96%;
+  border-bottom: 6px solid rgb(237, 239, 245);
+  border-left: 2px solid rgb(237, 239, 245);
+  border-right: 2px solid rgb(237, 239, 245);
+  transition: 0.3s;
 }
 .post_form .newpost .left {
   padding-left: 15px;
@@ -209,6 +213,11 @@ body, .wholepage {
 }
 .post_form .newpost .right .bottom input {
   display: none;
+}
+.post_form .newpost:hover {
+  border-bottom: 6px solid rgb(195, 199, 211);
+  border-left: 2px solid rgb(195, 199, 211);
+  border-right: 2px solid rgb(195, 199, 211);
 }
 
 .fil_messages {

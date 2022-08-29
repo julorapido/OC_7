@@ -122,6 +122,7 @@ function Groupomania() {
                             <h1>Groupomania</h1>
                             <h2>Membre depuis le {date} </h2>
                         </div>
+                        <h2>Bienvenue, {userData.nom} {userData.prenom}</h2>
                         <h1>Communauté Groupomania <FontAwesomeIcon icon={faEarthAmerica} /> </h1>
                          <h2>Communauté publique * 112 Membres</h2>
 

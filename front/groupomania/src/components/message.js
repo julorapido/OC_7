@@ -3,8 +3,9 @@ import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faPenToSquare, faTrashCan, faEllipsis, faE} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
+import { NavLink } from "react-router-dom";
 
 function Message({Message}) {
 
@@ -17,7 +18,8 @@ function Message({Message}) {
     const [loggedUserData, setloggedUserData] = useState([]);
     const [messageDeleted, setMessageDeleted] = useState(false);
     const [randomClass, setRandomClass] = useState(false);
-
+    const [userAdmin, setuserAdmin] = useState(false);
+    const [messagePhoto, setMessagePhoto] = useState(true);
 
 
     const randInt = Math.floor(Math.random() * 4);
@@ -36,9 +38,19 @@ function Message({Message}) {
         }
 
         if(loggedUserData.admin === true ){
-            setuserId(true)
+            setuserId(true);
+
         };
 
+        if (userData.admin === true){
+            setuserAdmin(true);
+        }else{
+            setuserAdmin(false);
+        }
+
+        if (Message.imageUrl === "http://localhost:3000/uploads"){
+            setMessagePhoto(false);
+        }
         if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
     }, [messageValue])
 
@@ -87,14 +99,56 @@ function Message({Message}) {
         <div className='message_div'>
                 {randomClass ? (
                         <div className="top_msg left">
-                            <h1>Message de {userData.nom}</h1>  
-                            <img src={userData.imageUrl}/>
+                                <div className="profile prfl_left">
+                                    <h1><FontAwesomeIcon icon={faEllipsis} /></h1>
+                                    <h2><NavLink exact to="/signup" className="linktopage"  style={{ textDecoration: 'none', color: "#FD2D01" }}> Voir Profil</NavLink></h2>
+                                </div>
+
+                                <div className="descdiv">
+                                        <div className="textdiv">
+                                                <h1>{userData.nom} {userData.prenom}</h1>
+                                                <>
+                                                {
+                                                    userAdmin ? 
+                                                    (<>
+                                                    <h2>Administrateur Groupomania</h2>
+                                                    </>) 
+                                                    : (<>
+                                                    <h2>Membre de la Communauté</h2>
+                                                    </>)
+                                                } 
+                                                </>
+                                        </div>
+                              
+                                        <img src={userData.imageUrl}/>
+                                </div>
+
                         </div>
-                 
+                        
                 ) : (
                     <div className="top_msg right">
-                        <h1>Message de {userData.nom}</h1>  
-                          <img src={userData.imageUrl}/>
+                            <div className="profile   prfl_right">
+                                    <h1><FontAwesomeIcon icon={faEllipsis} /></h1>
+                                    <h2><NavLink exact to="/signup" className="linktopage"  style={{ textDecoration: 'none', color: "#FD2D01" }}> Voir Profil</NavLink></h2>
+                            </div>
+                            <div className="descdiv">
+                                        <div className="textdiv">
+                                                <h1>{userData.nom} {userData.prenom}</h1>
+                                                <>
+                                                {
+                                                    userAdmin ? 
+                                                    (<>
+                                                    <h2>Administrateur Groupomania</h2>
+                                                    </>) 
+                                                    : (<>
+                                                    <h2>Membre de la Communauté</h2>
+                                                    </>)
+                                                } 
+                                                </>
+                                        </div>
+                              
+                                        <img src={userData.imageUrl}/>
+                                </div>
                      </div>
                 )}
         
@@ -109,7 +163,7 @@ function Message({Message}) {
                         />
                         <button onClick={ () => postModifiedMessage()}>confirmer</button>
                         <div className="imgdiv">
-                            <img src={Message.imageUrl}/>
+                                {messagePhoto ? (<><img src={Message.imageUrl}/></>) : (<></>)}
                         </div>
                     </div>
                     </>
@@ -117,25 +171,31 @@ function Message({Message}) {
                     <div className='mid_msg'>
                         <h2>{messageChangedOnce ? messageValue : Message.description }</h2>
                         <div className="imgdiv">
-                            <img src={Message.imageUrl}/>
+                            {messagePhoto ? (<><img src={Message.imageUrl}/></>) : (<></>)}
                         </div>
                     </div>
                 )
                 }
                 <div className="bottom_msg">
-                    <h2>Le {date}</h2>
-                    <h3>{Message.likes} <FontAwesomeIcon icon={faThumbsUp} /> </h3>
+                    <div className="inf_msg">
+                        <h2>{date}</h2>
+                        <h3>{Message.likes} <FontAwesomeIcon icon={faThumbsUp} /> </h3>
+                    </div>
+
 
                     <>
-                        {userId ? (
-                            <>
-                                <button onClick={handlemodify}>MODIFIER <FontAwesomeIcon icon={faPenToSquare} /> </button>
-                                <button onClick={handleDelete}>SUPPRIMER <FontAwesomeIcon icon={faTrashCan} /> </button>
-                            </>
-                        ):(
-                            <>  
-                            </>
-                        )}
+                        <div className="edit_msg">
+                                {userId ? (
+                                    <>  
+                                        <button onClick={handlemodify}>MODIFIER <FontAwesomeIcon icon={faPenToSquare}  className="modify"/> </button>
+                                        <button onClick={handleDelete}>SUPPRIMER <FontAwesomeIcon icon={faTrashCan} className="delete"/> </button>
+                                    </>
+                                ):(
+                                    <>  
+                                    </>
+                                )}
+                        </div>
+           
                     </>
 
                 </div>
