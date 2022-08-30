@@ -16,7 +16,7 @@ function Groupomania() {
     const [newMessage, setNewMessage] = useState('');
     const [userData, setUserData] = useState([]);
     const inputFile = useRef(null);
-    const [fileName, setFileName] = useState([]);
+    const [fileName, setFileName] = useState('');
     const [memberClicked, setMemberClicked] = useState(false);
 
     const dispatch = useDispatch();
@@ -41,13 +41,10 @@ function Groupomania() {
     }
 
     const handlePicture = (e)=> {
+        setFileName(e.target.files[0].name);
         setFile(e.target.files[0]);
-        const data = {
-            photo : file
-        }
-        //console.log(data.photo.file);
-        //setFileName(data.photo);
     }
+
     async function handleClick(){
 
         const form = new FormData();
@@ -61,7 +58,6 @@ function Groupomania() {
         form.forEach((value, key) => (
             data[key] = value
         ));
-        console.log(data);
         await axios({
             method: "post",
             url: "http://localhost:3000/api/post/",
@@ -69,7 +65,6 @@ function Groupomania() {
             headers: { "Content-Type": "multipart/form-data" },
           })
         .then(resp => {
-                console.log(resp);
                 dispatch(addPost(resp.data));
         }).catch(err => console.log(err))
     }
@@ -133,6 +128,9 @@ function Groupomania() {
                     </div>
 
                         {memberClicked ? (<>
+
+                            tout les membres
+
                         </>): (
                             <>
                         <div className="newpost">
@@ -154,7 +152,7 @@ function Groupomania() {
                                 <div className="bottom">
                                     <div className="imgbtn">
                                         <h3 onClick={() => inputFile.current.click()} ><FontAwesomeIcon icon={faImages}  className="img_font"/> Image</h3>
-                                        <h3>e</h3>
+                                        <h4>{fileName}</h4>
                                     </div>
                                     <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => handlePicture(e)} ref={inputFile}/>
                                     <button type='submit'name='submit' onClick={handleClick}>Envoyer   <FontAwesomeIcon icon={faPaperPlane} /></button>

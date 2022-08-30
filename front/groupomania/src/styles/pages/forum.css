@@ -193,11 +193,24 @@ body, .wholepage {
   transform: translateX(-5px);
 }
 .post_form .newpost .right .bottom .imgbtn {
+  display: flex;
+  flex-direction: row;
   margin-left: 7px;
   margin-top: auto;
   transition: 0.3s;
   word-spacing: 10px;
   color: rgb(118, 118, 118);
+}
+.post_form .newpost .right .bottom .imgbtn h4 {
+  font-weight: 300;
+  color: rgb(118, 118, 118);
+  background-color: rgb(237, 239, 245);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  margin-top: auto;
+  margin-left: 20px;
+  margin-bottom: auto;
 }
 .post_form .newpost .right .bottom .imgbtn:hover {
   transform: translateX(4px);

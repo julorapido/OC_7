@@ -163,7 +163,7 @@
 .message_div .bottom_msg .edit_msg {
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   justify-content: space-between;
 }
 .message_div .bottom_msg .edit_msg button {
