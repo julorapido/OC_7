@@ -21,10 +21,9 @@ function Message({Message}) {
     const [randomClass, setRandomClass] = useState(false);
     const [userAdmin, setuserAdmin] = useState(false);
     const [messagePhoto, setMessagePhoto] = useState(true);
-    const [userLiked, setUserLiked] = useState(0);
-
-    const [userAlreadyLiked , setUserAlreadyLiked] = useState(false);
-    const [userCancelLike, setUserCancelLike] = useState(false);
+    const [userLiked, setUserLiked] = useState(false);
+    const [userAlreadyLiked, setuserAlreadyLiked] = useState(false);
+    const [likeInt, setlikeInt] = useState(0);
 
     const randInt = Math.floor(Math.random() * 4);
 
@@ -62,35 +61,27 @@ function Message({Message}) {
 
     function checkPostLikeStatus(){
         if (Message.usersLiked.indexOf(localStorage.getItem("userId")) == -1){
-            setUserAlreadyLiked(false);
+            setUserLiked(false);
+            setuserAlreadyLiked(false);
         }else{
-            setUserAlreadyLiked(true);
+            setUserLiked(true);
+            setuserAlreadyLiked(true);
         }
     }
 
     function handleLike(){
-        if (userAlreadyLiked){
-            if (userLiked === 0){
-                setUserLiked(-1);
-                setUserCancelLike(true);
-                axios.post(`http://localhost:3000/api/post/` + Message._id,{userId: localStorage.getItem("userId")})
-            }else if (userLiked === -1 ){
-                setUserLiked(0);
-                setUserCancelLike(false);
-                axios.post(`http://localhost:3000/api/post/` + Message._id,{userId: localStorage.getItem("userId")})
-            }
-        }else {
             axios.post(`http://localhost:3000/api/post/` + Message._id,{
                 userId: localStorage.getItem("userId")
             }).then(resp => {
                 if (resp.status === 202){
-                    setUserLiked(0);
+                    setUserLiked(false);
+                    setlikeInt(-1);
                 }else {
-                    setUserLiked(1);
+                    setlikeInt(0);
+                    setUserLiked(true);
                 }
             });
-        }
-
+            console.log( userLiked);
     }
 
 
@@ -209,8 +200,8 @@ function Message({Message}) {
                 <div className="bottom_msg">
                     <div className="inf_msg">
                         <h2>{date}</h2>
-                        <h4 onClick={handleLike} className={ (userAlreadyLiked === true && userCancelLike === false) || (userLiked === 1) ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
-                        <h3>{Message.likes + userLiked}</h3>
+                        <h4 onClick={handleLike} className={ userLiked === true ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
+                        <h3> {userAlreadyLiked === true ? ( Message.likes + likeInt) : ( Message.likes + userLiked ) }  </h3>
                     </div>
 
 
