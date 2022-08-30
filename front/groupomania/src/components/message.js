@@ -3,7 +3,7 @@ import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faE} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPenToSquare, faTrashCan, faEllipsis} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 
@@ -130,7 +130,7 @@ function Message({Message}) {
                                                 </>
                                         </div>
                               
-                                        <img src={userData.imageUrl}/>
+                                        <img src={userData.imageUrl} alt="Icone de profil"/>
                                 </div>
 
                         </div>
@@ -157,7 +157,7 @@ function Message({Message}) {
                                                 </>
                                         </div>
                               
-                                        <img src={userData.imageUrl}/>
+                                        <img src={userData.imageUrl} alt="Icone de profil"/>
                                 </div>
                      </div>
                 )}
@@ -173,7 +173,7 @@ function Message({Message}) {
                         />
                         <button onClick={ () => postModifiedMessage()}>confirmer</button>
                         <div className="imgdiv">
-                                {messagePhoto ? (<><img src={Message.imageUrl}/></>) : (<></>)}
+                                {messagePhoto ? (<><img src={Message.imageUrl} alt="Icone de message"/>  </>) : (<></>)}
                         </div>
                     </div>
                     </>
@@ -181,7 +181,7 @@ function Message({Message}) {
                     <div className='mid_msg'>
                         <h2>{messageChangedOnce ? messageValue : Message.description }</h2>
                         <div className="imgdiv">
-                            {messagePhoto ? (<><img src={Message.imageUrl}/></>) : (<></>)}
+                            {messagePhoto ? (<><img src={Message.imageUrl} alt="Icone de message"/> </>) : (<></>)}
                         </div>
                     </div>
                 )

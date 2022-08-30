@@ -42,47 +42,6 @@ body {
     background-position: 0% 50%;
   }
 }
-.header {
-  background-color: white !important;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: rgb(56, 56, 56);
-  padding-top: 10px;
-  padding-bottom: 10px;
-  justify-content: space-around;
-  border-radius: 0px 0px 25px 25px;
-  border-bottom: 4px solid rgb(195, 199, 211);
-}
-.header h1 {
-  font-weight: 300;
-}
-.header .edit {
-  display: flex;
-  flex-direction: row;
-}
-.header .edit h2 {
-  padding: 15px;
-  font-size: 18px;
-  margin-left: 20px;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-.header .edit .headerFa {
-  margin-right: 10px;
-  margin-left: 5px;
-}
-.header .edit .editprofile {
-  cursor: pointer;
-  border-radius: 10px;
-  font-size: 22px;
-  background-color: #FFD7D7;
-  transition: 0.3s;
-}
-.header .edit .editprofile:hover {
-  transform: scale(0.97);
-}
-
 .post_form {
   background-color: rgb(237, 239, 245) !important;
   width: 55%;
@@ -326,4 +285,50 @@ body {
   width: 55%;
   margin-left: auto;
   margin-right: auto;
-}/*# sourceMappingURL=forum.css.map */
+}
+
+body {
+  background: none;
+}
+
+.wholeprofile {
+  background-color: white !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgb(56, 56, 56);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: space-around;
+  border-radius: 0px 0px 25px 25px;
+  border-bottom: 4px solid rgb(195, 199, 211);
+  background-color: red;
+}
+.wholeprofile h1 {
+  font-weight: 300;
+}
+.wholeprofile .edit {
+  display: flex;
+  flex-direction: row;
+}
+.wholeprofile .edit h2 {
+  padding: 15px;
+  font-size: 18px;
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.wholeprofile .edit .headerFa {
+  margin-right: 10px;
+  margin-left: 5px;
+}
+.wholeprofile .edit .editprofile {
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 22px;
+  background-color: #FFD7D7;
+  transition: 0.3s;
+}
+.wholeprofile .edit .editprofile:hover {
+  transform: scale(0.97);
+}/*# sourceMappingURL=userprofile.css.map */

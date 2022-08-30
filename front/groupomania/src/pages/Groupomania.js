@@ -8,11 +8,11 @@ import '../styles/pages/forum.css'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImages, faEarthAmerica, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import Fade from 'react-reveal/Fade';
 
 function Groupomania() {
-    const [userAuth, setuserAuth] = useState(false);
+    const [userAuth, setuserAuth] = useState(true);
     const [newMessage, setNewMessage] = useState('');
     const [userData, setUserData] = useState([]);
     const inputFile = useRef(null);
@@ -25,19 +25,23 @@ function Groupomania() {
     const date = dateParser(userData.createdAt, false);
 
     async function CheckUserAuth (){
-        await axios.post(
-            'http://localhost:3000/api/auth/checktoken',{
-                cookie:cookies.get('jwt').toString()
-            }).then((resp) =>{
-                if (resp.status === 200){
-                    localStorage.setItem("userId", resp.data._id)
-                    setuserAuth(true);
-                }else{
-                    setuserAuth(false);
-                }
-            }).catch(err => {
-                console.log(err.response.data);
-            })
+        if (cookies.get("jwt")){
+            await axios.post(
+                'http://localhost:3000/api/auth/checktoken',{
+                    cookie:cookies.get('jwt').toString()
+                }).then((resp) =>{
+                    if (resp.status === 200){
+                        setuserAuth(true);
+                        localStorage.setItem("userId", resp.data._id)
+                    }else{
+                        setuserAuth(false);
+                    }
+                }).catch(err => {
+                    console.log(err.response.data);
+                })
+        }else {
+            setuserAuth(false);
+        }
     }
 
     const handlePicture = (e)=> {
@@ -46,9 +50,7 @@ function Groupomania() {
     }
 
     async function handleClick(){
-
         const form = new FormData();
-
         if (file){
             form.append('image', file, 'image.png');
         }
@@ -81,7 +83,7 @@ function Groupomania() {
                 }
             ).catch(err => console.log(err))
         }
-    }, [userAuth]);
+    }, [userAuth, dispatch]);
 
 
     async function getUserInfo(){
@@ -100,10 +102,20 @@ function Groupomania() {
 
                 <div className="header">
                             <h2>GROUPOMANIA</h2> 
-                            <h1>POSTES DE TOUT LE MONDE</h1>
+                            <h1>Postes de la Communauté</h1>
                             <div className="edit">
-                              <h2>Modifier mon profil</h2>
-                               <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} >Déconnexion</NavLink>
+                              <h2 className='editprofile'> 
+                                    <NavLink exact to="/forum/user/" className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
+                                    <FontAwesomeIcon icon={faUserPen} className="headerFa" /> Modifier mon profil
+                                    </NavLink>
+                              </h2>
+
+                               <h2>
+                                    <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} >
+                                    Déconnexion
+                                    <FontAwesomeIcon icon={faArrowRightToBracket} className="headerFa"/>
+                                    </NavLink>
+                               </h2>
                            </div>
                 </div>
 
@@ -112,12 +124,12 @@ function Groupomania() {
 
 
                     <div className="top">
-                        <img src={require("../media/forum.png")}/>
+                        <img src={require("../media/forum.png")}  alt="Icone du forum"/>
                         <div className="top_title">
                             <h1>Groupomania</h1>
                             <h2>Membre depuis le {date} </h2>
                         </div>
-                        <h2>Bienvenue, {userData.nom} {userData.prenom}</h2>
+                        <h4>Bienvenue,  {userData.nom} {userData.prenom}</h4>
                         <h1>Communauté Groupomania <FontAwesomeIcon icon={faEarthAmerica} /> </h1>
                          <h2>Communauté publique * 112 Membres</h2>
 
@@ -137,7 +149,7 @@ function Groupomania() {
 
                             <div className="left">
                                 <div className="imgdiv">
-                                    <img src={userData.imageUrl}/>
+                                    <img src={userData.imageUrl} alt="Icone de profil"/>
                                 </div>
                             </div>
 
@@ -146,13 +158,25 @@ function Groupomania() {
                             <div className="right">
                                 
                                 <div className="top">
+                                    <h3>{userData.nom} {userData.prenom}</h3>
                                     <input type="description" defaultValue="Nouveau message" onChange={e => setNewMessage(e.target.value)} className='desc_input' />
                                 </div>
 
                                 <div className="bottom">
                                     <div className="imgbtn">
                                         <h3 onClick={() => inputFile.current.click()} ><FontAwesomeIcon icon={faImages}  className="img_font"/> Image</h3>
-                                        <h4>{fileName}</h4>
+                                        <h4>
+                                            {fileName === "" ? 
+                                            <>
+                                               <FontAwesomeIcon icon={faCloudArrowDown} />
+                                            </>
+                                            : 
+                                            <>
+                                            <FontAwesomeIcon icon={faCaretRight} />
+                                             {"  " + fileName} 
+                                            </>
+                                            }
+                                        </h4>
                                     </div>
                                     <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => handlePicture(e)} ref={inputFile}/>
                                     <button type='submit'name='submit' onClick={handleClick}>Envoyer   <FontAwesomeIcon icon={faPaperPlane} /></button>

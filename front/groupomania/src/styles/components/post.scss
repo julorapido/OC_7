@@ -151,8 +151,12 @@
                 background-color: $color-2;
                 color: $color-1;
                 font-size: 23px;
-                transition: 0.3s;
+                transition: 0.2s;
                 border: 2px solid white;
+            }
+            h4:active{
+                color: white;
+                background-color: $color-1;
             }
             h4:hover{
                 border: 2px solid $color-1;

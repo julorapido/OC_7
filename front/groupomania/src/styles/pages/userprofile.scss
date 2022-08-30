@@ -1,0 +1,10 @@
+@import '../pages/forum';
+
+body{
+    background: none;
+}
+
+.wholeprofile{
+    @include header();
+    background-color: red;
+}

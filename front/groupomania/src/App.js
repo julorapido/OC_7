@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Forum from './pages/Groupomania';
 import PageNotFound from './pages/PageNotFound';
+import UserProfile from './pages/UserProfile';
 import { BrowserRouter, Route,Routes } from "react-router-dom";
 
 function App() {
@@ -14,9 +15,9 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>}/>
+      <Route path="/forum/user" element={<UserProfile/>}/>
       <Route path="/forum" element={<Forum/>}/>
       <Route path="*" element={<PageNotFound/>}/>
-
     </Routes>
   </BrowserRouter>
   )

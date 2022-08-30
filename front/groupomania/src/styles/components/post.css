@@ -153,8 +153,12 @@
   background-color: #FFD7D7;
   color: #FD2D01;
   font-size: 23px;
-  transition: 0.3s;
+  transition: 0.2s;
   border: 2px solid white;
+}
+.message_div .bottom_msg .inf_msg h4:active {
+  color: white;
+  background-color: #FD2D01;
 }
 .message_div .bottom_msg .inf_msg h4:hover {
   border: 2px solid #FD2D01;
