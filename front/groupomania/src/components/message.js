@@ -4,7 +4,7 @@ import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import '../styles/components/post.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faL} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 
@@ -49,7 +49,7 @@ function Message({Message}) {
         
         if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
         checkPostLikeStatus();
-    }, [messageValue])
+    }, [messageValue, userData.admin])
 
 
     function handlemodify(){
@@ -182,7 +182,7 @@ function Message({Message}) {
                             defaultValue={messageChangedOnce ? messageValue : Message.description }
                             autoFocus
                         />
-                        <button onClick={ () => postModifiedMessage()}>confirmer</button>
+                        <button onClick={ () => postModifiedMessage()}>Confirmer <FontAwesomeIcon icon={faSquareCheck} /></button>
                         <div className="imgdiv">
                                 {messagePhoto ? (<><img src={Message.imageUrl} alt="Icone de message"/>  </>) : (<></>)}
                         </div>
@@ -203,8 +203,6 @@ function Message({Message}) {
                         <h4 onClick={handleLike} className={ userLiked === true ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
                         <h3> {userAlreadyLiked === true ? ( Message.likes + likeInt) : ( Message.likes + userLiked ) }  </h3>
                     </div>
-
-
                     <>
                         <div className="edit_msg">
                                 {userId ? (

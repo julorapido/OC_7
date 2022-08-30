@@ -31,14 +31,19 @@
         .profile{
             display: flex;
             flex-direction: row;
+            border-bottom: 2px solid white;
+            transition: 0.3s;
             h1{
                 font-size: 35px;   
                 color: $home-darkgrey;
             }
             h2{
                 font-size: 20px;
-                
                 margin-top: 33px;
+                transition: 0.3s;
+            }
+            h2:hover{
+                transform: translateX(5px);
             }
         }
         .prfl_left{
@@ -101,6 +106,22 @@
         background-color: white;
         padding-top: 30px;
         padding-bottom: 30px;
+        input{
+            padding: 10px;
+            margin-left: 40px;
+            background-color: $home-grey;
+            border-radius: 10px;
+            font-size: 20px;
+            color: $home-darkgrey;
+        }
+        button {
+            padding: 15px;
+            margin-left: 30px;
+            font-size: 22px;
+            color: $color-1;
+            background-color: $color-2;
+            border-radius: 15px;
+        }
         h2{
             margin-top: 0px;
             margin-left: 40px;
@@ -154,6 +175,7 @@
                 font-size: 23px;
                 transition: 0.2s;
                 border: 2px solid white;
+                cursor: pointer;
             }
             .heart_liked{
                 color: white;
@@ -179,6 +201,13 @@
                 border-radius: 10px;
                 transition: 0.3s;
                 border: 2px solid white;
+                cursor: pointer;
+            }
+            .modify{
+                border: 3px solid $color-1;
+            }.modify:hover{
+                border-color: $color-6;
+                transform: scale(0.96);
             }
             .delete{
                 background-color: $color-2;

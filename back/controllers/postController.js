@@ -70,16 +70,16 @@ module.exports.updatePost = async (req,res) => {
     }else {
         /// SUPPRESSION DE L'IMAGE PRÉCÉDENTE////////////////////
         const getPost = await PostModel.findById(req.params.id);
-        const filename = getSauce.imageUrl.split('/uploads/')[1];
+        const filename = getPost.imageUrl.split('/uploads/')[1];
         fs.unlink(`uploads/${filename}`, (err => {if (err) console.log(err)}));
         ////////////////////////////////////////////////////////////
         try{
-            const updatedSauce = await SauceModel.findByIdAndUpdate(req.params.id, { $set: {
+            const updatedPost = await PostModel.findByIdAndUpdate(req.params.id, { $set: {
                 description: req.body.description,
                 imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
             }});
 
-            return res.status(201).json(updatedSauce);
+            return res.status(201).json(updatedPost);
         }catch(err){
             return res.status(401).send(err);
         }

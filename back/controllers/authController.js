@@ -1,6 +1,7 @@
 const UserModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const {signUpErrors, signInErrors } = require('../utils/errorsUtils');
+const fs = require('fs');
 
 
 module.exports.signup = async (req, res) => {
@@ -61,4 +62,27 @@ module.exports.getSpecificUser = async (req, res) => {
             }catch(err){
                     return res.status(400).send(err);
             }
+}
+
+module.exports.updateUser = async (req,res) => {
+    if (!req.file){
+            return res.status(401).send("Pas de fichier envoyé");    
+    }else {
+        /// SUPPRESSION DE L'IMAGE PRÉCÉDENTE////////////////////
+        const getUser = await UserModel.findById(req.params.id);
+        const filename = getUser.imageUrl.split('/uploads/')[1];
+        fs.unlink(`uploads/${filename}`, (err => {if (err) console.log(err)}));
+        ////////////////////////////////////////////////////////////
+        try{
+            const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, { $set: {
+                nom: req.body.nom,
+                prenom: req.body.prenom,
+                imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
+            }});
+
+            return res.status(201).json(req.file.filename);
+        }catch(err){
+            return res.status(401).send(err);
+        }
+    }
 }
