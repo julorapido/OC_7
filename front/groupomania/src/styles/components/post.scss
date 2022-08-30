@@ -33,6 +33,7 @@
             flex-direction: row;
             h1{
                 font-size: 35px;   
+                color: $home-darkgrey;
             }
             h2{
                 font-size: 20px;
@@ -121,21 +122,41 @@
         border-top: 3px solid $home-grey;
         padding: 20px;
         background-color: rgb(255, 255, 255);
+        padding-bottom: 0px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         border-radius: 0px 0px 20px 20px;
-        h2{
-            float: left;
-        }
-        h3{
-            float: right;
-        }
+
         .inf_msg{
             width: 100%;
-
+            h2{
+                float: left;
+                margin-top: 33px;
+                color: $home-darkgrey;
+                font-weight: 500;
+            }
+            h3, h4{
+                float: right;
+            }
             h3{
+                color: $color-1;
+                font-size: 27px;
+                margin-top: 39px;
+                margin-right: 13px;
+            }
+            h4{
+                padding: 10px 13px 10px 13px;
+                border-radius: 50%;
+                background-color: $color-2;
+                color: $color-1;
                 font-size: 23px;
+                transition: 0.3s;
+                border: 2px solid white;
+            }
+            h4:hover{
+                border: 2px solid $color-1;
+                transform: scale(1.1);
             }
         }
 
@@ -150,9 +171,17 @@
                 font-size: 18px;
                 background-color: $color-1;
                 color: white;
-
+                border-radius: 10px;
+                transition: 0.3s;
+                border: 2px solid white;
             }
-
+            .delete{
+                background-color: $color-2;
+                color: $color-1;
+            }
+            .delete:hover{
+                border: 2px solid $color-1;
+            }
         }
     }
 

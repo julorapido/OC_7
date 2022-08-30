@@ -96,13 +96,18 @@ module.exports.likePost = async (req,res) => {
         PostModel.findOne({
             _id: req.params.id
         }).then(post => {
-                if (post.usersLiked.indexOf(req.body.userId) != -1){ //// User dans la table Liked
-                    return res.status(401).send("L'utilisateur aime deja"); 
+                const indexOfUser = post.usersLiked.indexOf(req.body.userId);
+                if (indexOfUser != -1){ //// User dans la table Liked
+                    post.likes--;// Enlever le like
+                    post.usersLiked.splice(indexOfUser, indexOfUser + 1);// Delete l'utilisateur de la table userLiked
+                    post.save();
+                    return res.status(202).send("L'utilisateur aime deja"); 
+
                 }else {//// User pas dans la table liked
                     post.likes++; // Like
-                    post.usersLiked.push(req.body.userId);
+                    post.usersLiked.push(req.body.userId); // Ajout de l'utilisateur dans la table userLiked
+                    post.save();
                 }
-                post.save();
             
             return res.status(200).json(post);
         } 

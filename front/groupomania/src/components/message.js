@@ -3,7 +3,7 @@ import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faPenToSquare, faTrashCan, faEllipsis, faE} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faE} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 
@@ -20,7 +20,7 @@ function Message({Message}) {
     const [randomClass, setRandomClass] = useState(false);
     const [userAdmin, setuserAdmin] = useState(false);
     const [messagePhoto, setMessagePhoto] = useState(true);
-
+    const [userLiked, setUserLiked] = useState(0);
 
     const randInt = Math.floor(Math.random() * 4);
 
@@ -28,7 +28,6 @@ function Message({Message}) {
     useEffect(() => {
         if (randInt === 1 || randInt === 3){
             setRandomClass(true);
-            console.log("left");
         }
         getUserInfo();
         if ( (localStorage.getItem("userId") === Message.userId)){
@@ -62,6 +61,17 @@ function Message({Message}) {
             setMessageModifying(true);}
     }
 
+    function handleLike(){
+        axios.post(`http://localhost:3000/api/post/` + Message._id,{
+            userId: localStorage.getItem("userId")
+        }).then(resp => {
+            if (resp.status === 202){
+                setUserLiked(0);
+            }else {
+                setUserLiked(1);
+            }
+        });
+    }
 
 
     function postModifiedMessage(){
@@ -179,7 +189,8 @@ function Message({Message}) {
                 <div className="bottom_msg">
                     <div className="inf_msg">
                         <h2>{date}</h2>
-                        <h3>{Message.likes} <FontAwesomeIcon icon={faThumbsUp} /> </h3>
+                        <h4 onClick={handleLike}> <FontAwesomeIcon icon={faHeart} /> </h4>
+                        <h3>{Message.likes + userLiked}</h3>
                     </div>
 
 
@@ -187,8 +198,10 @@ function Message({Message}) {
                         <div className="edit_msg">
                                 {userId ? (
                                     <>  
-                                        <button onClick={handlemodify}>MODIFIER <FontAwesomeIcon icon={faPenToSquare}  className="modify"/> </button>
-                                        <button onClick={handleDelete}>SUPPRIMER <FontAwesomeIcon icon={faTrashCan} className="delete"/> </button>
+                                        
+                                            <button onClick={handlemodify} className="modify">MODIFIER <FontAwesomeIcon icon={faPenToSquare}/> </button>
+                                    
+                                        <button onClick={handleDelete}  className="delete">SUPPRIMER <FontAwesomeIcon icon={faTrashCan}/> </button>
                                     </>
                                 ):(
                                     <>  

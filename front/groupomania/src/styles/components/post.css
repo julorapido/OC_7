@@ -39,6 +39,7 @@
 }
 .message_div .top_msg .profile h1 {
   font-size: 35px;
+  color: rgb(118, 118, 118);
 }
 .message_div .top_msg .profile h2 {
   font-size: 20px;
@@ -122,22 +123,42 @@
   border-top: 3px solid rgb(237, 239, 245);
   padding: 20px;
   background-color: rgb(255, 255, 255);
+  padding-bottom: 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 0px 0px 20px 20px;
 }
-.message_div .bottom_msg h2 {
-  float: left;
-}
-.message_div .bottom_msg h3 {
-  float: right;
-}
 .message_div .bottom_msg .inf_msg {
   width: 100%;
 }
+.message_div .bottom_msg .inf_msg h2 {
+  float: left;
+  margin-top: 33px;
+  color: rgb(118, 118, 118);
+  font-weight: 500;
+}
+.message_div .bottom_msg .inf_msg h3, .message_div .bottom_msg .inf_msg h4 {
+  float: right;
+}
 .message_div .bottom_msg .inf_msg h3 {
+  color: #FD2D01;
+  font-size: 27px;
+  margin-top: 39px;
+  margin-right: 13px;
+}
+.message_div .bottom_msg .inf_msg h4 {
+  padding: 10px 13px 10px 13px;
+  border-radius: 50%;
+  background-color: #FFD7D7;
+  color: #FD2D01;
   font-size: 23px;
+  transition: 0.3s;
+  border: 2px solid white;
+}
+.message_div .bottom_msg .inf_msg h4:hover {
+  border: 2px solid #FD2D01;
+  transform: scale(1.1);
 }
 .message_div .bottom_msg .edit_msg {
   display: flex;
@@ -151,6 +172,16 @@
   font-size: 18px;
   background-color: #FD2D01;
   color: white;
+  border-radius: 10px;
+  transition: 0.3s;
+  border: 2px solid white;
+}
+.message_div .bottom_msg .edit_msg .delete {
+  background-color: #FFD7D7;
+  color: #FD2D01;
+}
+.message_div .bottom_msg .edit_msg .delete:hover {
+  border: 2px solid #FD2D01;
 }
 
 .message_div:hover {
