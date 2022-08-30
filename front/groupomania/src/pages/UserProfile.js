@@ -6,7 +6,7 @@ import { faArrowRightToBracket, faHouse } from '@fortawesome/free-solid-svg-icon
 import {useEffect, useState} from 'react';
 import '../styles/pages/userprofile.scss';
 import {dateParser} from'../components/utils';
-//import { setPostsData, addPost } from '../feature/postsSlice';
+import Fade from 'react-reveal/Fade';
 
 
 function UserProfile() {
@@ -60,7 +60,7 @@ function UserProfile() {
 
 
 
-
+                            <Fade bottom>
                             <div className="profile_content">
                                 <div className="profile_subcontent">
                                         <img src={userData.imageUrl} alt="Icone de profil"/>
@@ -73,7 +73,7 @@ function UserProfile() {
                                 </div>
                              
                             </div>
-
+                            </Fade>
 
 
 

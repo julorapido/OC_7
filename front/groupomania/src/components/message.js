@@ -4,7 +4,7 @@ import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import '../styles/components/post.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faPenToSquare, faTrashCan, faEllipsis} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faL} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 
@@ -24,6 +24,7 @@ function Message({Message}) {
     const [userLiked, setUserLiked] = useState(0);
 
     const [userAlreadyLiked , setUserAlreadyLiked] = useState(false);
+    const [userCancelLike, setUserCancelLike] = useState(false);
 
     const randInt = Math.floor(Math.random() * 4);
 
@@ -71,16 +72,17 @@ function Message({Message}) {
         if (userAlreadyLiked){
             if (userLiked === 0){
                 setUserLiked(-1);
+                setUserCancelLike(true);
                 axios.post(`http://localhost:3000/api/post/` + Message._id,{userId: localStorage.getItem("userId")})
             }else if (userLiked === -1 ){
                 setUserLiked(0);
+                setUserCancelLike(false);
                 axios.post(`http://localhost:3000/api/post/` + Message._id,{userId: localStorage.getItem("userId")})
             }
         }else {
             axios.post(`http://localhost:3000/api/post/` + Message._id,{
                 userId: localStorage.getItem("userId")
             }).then(resp => {
-                console.log(resp.status);
                 if (resp.status === 202){
                     setUserLiked(0);
                 }else {
@@ -207,7 +209,7 @@ function Message({Message}) {
                 <div className="bottom_msg">
                     <div className="inf_msg">
                         <h2>{date}</h2>
-                        <h4 onClick={handleLike} className={userAlreadyLiked === true || userLiked === 1 ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
+                        <h4 onClick={handleLike} className={ (userAlreadyLiked === true && userCancelLike === false) || (userLiked === 1) ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
                         <h3>{Message.likes + userLiked}</h3>
                     </div>
 
