@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
-import '../styles/pages/signup.css';
+import '../styles/pages/signup.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { faUserTie } from '@fortawesome/free-solid-svg-icons';

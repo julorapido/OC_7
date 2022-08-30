@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
+import '../styles/components/post.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPenToSquare, faTrashCan, faEllipsis} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
@@ -22,24 +23,19 @@ function Message({Message}) {
     const [messagePhoto, setMessagePhoto] = useState(true);
     const [userLiked, setUserLiked] = useState(0);
 
+    const [userAlreadyLiked , setUserAlreadyLiked] = useState(false);
+
     const randInt = Math.floor(Math.random() * 4);
 
     const date = dateParser(Message.createdAt, true);
     useEffect(() => {
-        if (randInt === 1 || randInt === 3){
-            setRandomClass(true);
-        }
+        if (randInt === 1 || randInt === 3){setRandomClass(true);}
         getUserInfo();
         if ( (localStorage.getItem("userId") === Message.userId)){
             setuserId(true);
-        }else{
-            setuserId(false);
-        }
+        }else{setuserId(false);}
 
-        if(loggedUserData.admin === true ){
-            setuserId(true);
-
-        };
+        if(loggedUserData.admin === true ){setuserId(true);};
 
         if (userData.admin === true){
             setuserAdmin(true);
@@ -50,7 +46,9 @@ function Message({Message}) {
         if (Message.imageUrl === "http://localhost:3000/uploads"){
             setMessagePhoto(false);
         }
+        
         if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
+        checkPostLikeStatus();
     }, [messageValue])
 
 
@@ -61,16 +59,36 @@ function Message({Message}) {
             setMessageModifying(true);}
     }
 
+    function checkPostLikeStatus(){
+        if (Message.usersLiked.indexOf(localStorage.getItem("userId")) == -1){
+            setUserAlreadyLiked(false);
+        }else{
+            setUserAlreadyLiked(true);
+        }
+    }
+
     function handleLike(){
-        axios.post(`http://localhost:3000/api/post/` + Message._id,{
-            userId: localStorage.getItem("userId")
-        }).then(resp => {
-            if (resp.status === 202){
+        if (userAlreadyLiked){
+            if (userLiked === 0){
+                setUserLiked(-1);
+                axios.post(`http://localhost:3000/api/post/` + Message._id,{userId: localStorage.getItem("userId")})
+            }else if (userLiked === -1 ){
                 setUserLiked(0);
-            }else {
-                setUserLiked(1);
+                axios.post(`http://localhost:3000/api/post/` + Message._id,{userId: localStorage.getItem("userId")})
             }
-        });
+        }else {
+            axios.post(`http://localhost:3000/api/post/` + Message._id,{
+                userId: localStorage.getItem("userId")
+            }).then(resp => {
+                console.log(resp.status);
+                if (resp.status === 202){
+                    setUserLiked(0);
+                }else {
+                    setUserLiked(1);
+                }
+            });
+        }
+
     }
 
 
@@ -111,7 +129,7 @@ function Message({Message}) {
                         <div className="top_msg left">
                                 <div className="profile prfl_left">
                                     <h1><FontAwesomeIcon icon={faEllipsis} /></h1>
-                                    <h2><NavLink exact to="/signup" className="linktopage"  style={{ textDecoration: 'none', color: "#FD2D01" }}> Voir Profil</NavLink></h2>
+                                    <h2><NavLink exact to={"/forum/user/" + userData._id} className="linktopage"  style={{ textDecoration: 'none', color: "#FD2D01" }}> Voir Profil</NavLink></h2>
                                 </div>
 
                                 <div className="descdiv">
@@ -139,7 +157,7 @@ function Message({Message}) {
                     <div className="top_msg right">
                             <div className="profile   prfl_right">
                                     <h1><FontAwesomeIcon icon={faEllipsis} /></h1>
-                                    <h2><NavLink exact to="/signup" className="linktopage"  style={{ textDecoration: 'none', color: "#FD2D01" }}> Voir Profil</NavLink></h2>
+                                    <h2><NavLink exact to={"/forum/user/" + userData._id} className="linktopage"  style={{ textDecoration: 'none', color: "#FD2D01" }}> Voir Profil</NavLink></h2>
                             </div>
                             <div className="descdiv">
                                         <div className="textdiv">
@@ -189,7 +207,7 @@ function Message({Message}) {
                 <div className="bottom_msg">
                     <div className="inf_msg">
                         <h2>{date}</h2>
-                        <h4 onClick={handleLike}> <FontAwesomeIcon icon={faHeart} /> </h4>
+                        <h4 onClick={handleLike} className={userAlreadyLiked === true || userLiked === 1 ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
                         <h3>{Message.likes + userLiked}</h3>
                     </div>
 

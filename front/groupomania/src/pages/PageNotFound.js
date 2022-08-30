@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/pages/pagenotfound.css';
+import '../styles/pages/pagenotfound.scss';
 import { NavLink } from "react-router-dom";
 
 function componentName() {

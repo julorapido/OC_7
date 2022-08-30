@@ -4,7 +4,7 @@ import MessageCard from "../components/message";
 import {useDispatch, useSelector} from "react-redux";
 import cookies from 'js-cookie';
 import { NavLink } from "react-router-dom";
-import '../styles/pages/forum.css'
+import '../styles/pages/forum.scss'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -105,7 +105,7 @@ function Groupomania() {
                             <h1>Postes de la Communauté</h1>
                             <div className="edit">
                               <h2 className='editprofile'> 
-                                    <NavLink exact to="/forum/user/" className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
+                                    <NavLink exact to={"/forum/user/" + localStorage.getItem("userId").toString()} className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
                                     <FontAwesomeIcon icon={faUserPen} className="headerFa" /> Modifier mon profil
                                     </NavLink>
                               </h2>

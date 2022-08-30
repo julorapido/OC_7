@@ -1,10 +1,64 @@
-@import '../pages/forum';
+@import '../settings';
 
-body{
-    background: none;
+.profile_content{
+    box-shadow: 7px 7px 0px $home-semigrey;
+    width: 60%;
+    background-color: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .profile_subcontent{
+        background-color: $home-grey;
+        box-shadow: 0px 4px 0px $home-semigrey;
+        text-align: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 25px;
+        padding-bottom: 30px;
+        width: 90%;
+        transition: 0.3s;
+        img{
+            margin-top: 30px;
+            width: 250px;
+            border-radius: 30px;
+        }
+    }
+    .profile_subcontent:hover{
+        background-color: $home-semigrey;
+    }
+
 }
 
-.wholeprofile{
-    @include header();
-    background-color: red;
+
+.loaderdiv{
+    width: max-content;
+    align-items: center;
+    height: 70vh;
+    margin-left: auto;
+    margin-right: auto;
+    .loader {
+    width: 120px;
+    height: 120px;
+    border: 10px solid #FFF;
+    border-bottom-color: #484848;
+    margin-top: 25vh;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
 }
+
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
