@@ -9,8 +9,9 @@ import '../styles/pages/forum.scss'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket, faPeopleArrows } from '@fortawesome/free-solid-svg-icons'
+import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket, faPeopleArrows, faCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Fade';
 
 function Groupomania() {
     const [userAuth, setuserAuth] = useState(true);
@@ -27,6 +28,8 @@ function Groupomania() {
     const date = dateParser(userData.createdAt, false);
 
     const [allUsersData, setallUsersData] = useState([]);
+
+    const [sortMode, setSortMode] = useState(false);
 
     async function CheckUserAuth (){
         if (cookies.get("jwt")){
@@ -112,6 +115,14 @@ function Groupomania() {
     }
     function turnOff(){setMemberClicked(false)};
     function turnOn(){setMemberClicked(true)};
+
+    function switchSort(){
+        if (sortMode){
+            setSortMode(false);
+        }else{
+            setSortMode(true);
+        }
+    }
     return (
         <>
         <div className='wholepage'>
@@ -120,7 +131,7 @@ function Groupomania() {
 
                 <div className="header">
                             <p>GROUPOMANIA</p> 
-                            <h1> <FontAwesomeIcon icon={faPeopleArrows} /> | Postes de la Communauté</h1>
+                            <h1> <FontAwesomeIcon icon={faPeopleArrows} />  Postes de la Communauté</h1>
                             <div className="edit">
                               <h2 className='editprofile'> 
                                     <NavLink exact to={"/forum/user/" + localStorage.getItem("userId").toString()} className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
@@ -147,7 +158,7 @@ function Groupomania() {
                             <h1>Groupomania</h1>
                             <h2>Membre depuis le {date} </h2>
                         </div>
-                        <h4>Bienvenue,  {userData.nom} {userData.prenom}</h4>
+                        <h4>Bienvenue, {userData.prenom} {userData.nom} </h4>
                         <h1>Communauté Groupomania <FontAwesomeIcon icon={faEarthAmerica} /> </h1>
                         {memberClicked ? (<><h2>Communauté publique  : <span> {users} Membres</span></h2></>) : (<><h2>Forum Groupomania  : <span> {postsData ? (<>{postsData.length}</>) : (<></>)} Postes</span></h2></>)}
 
@@ -158,32 +169,32 @@ function Groupomania() {
                     </div>
 
                         {memberClicked ? (<>
-
-                            tout les membres
-
                             <div className='fil_members'>
-                                <Fade top>
+                                <Slide bottom>
                                     <h1>Liste des membres</h1>
-                                    </Fade>
+                                </Slide>
+                                <Slide bottom>
+                                    {sortMode ? (<> <h6 onClick={switchSort}>Trier par date (décroissant) </h6></>) : (<> <h6 onClick={switchSort} >Trier par date (croissant) </h6></>)}
+                                </Slide>
+             
                                         <div className="cards-member">
+                                            {sortMode ? (<>
                                             {allUsersData?.map((oneUser, index) => (
                                                 <>
                                                 <MemberCard key={index} MemberInfo={oneUser} />
-                                                <MemberCard key={index} MemberInfo={oneUser} />
-                                                <MemberCard key={index} MemberInfo={oneUser} />
-
-                                                <MemberCard key={index} MemberInfo={oneUser} />
-
-                                                <MemberCard key={index} MemberInfo={oneUser} />
-
-                                                <MemberCard key={index} MemberInfo={oneUser} />
-
-                                                <MemberCard key={index} MemberInfo={oneUser} />
-
-
                                                 </>
-                                    
+                                            ))}
+
+                                            </>) :(<>
+
+                                            {allUsersData?.map((oneUser, index) => (
+                                                <>
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+                                                </>
                                             )).reverse()}
+
+                                            </>)}
+                               
                                         </div>
                          
                             </div>
@@ -251,13 +262,15 @@ function Groupomania() {
                 </>
    
         </>
-        ):(
-                <div>
-                    
-                    Veuillez vous connecter pour pouvoir consulter le forum 
-                    <NavLink exact to="/login" style={{ textDecoration: 'none'}} > En cliquant ici </NavLink>
+        ):( 
+            <>
+                <div className='connect_first'>
 
+                    <h1>Veuillez vous connecter d'abord pour pouvoir consulter le forum  </h1>
+                    <h2><NavLink exact to="/login" style={{ textDecoration: 'none', color: "white"}} > En cliquant ici <FontAwesomeIcon icon={faCircleLeft}/> </NavLink></h2>
+                    <img src={require("../media/connectFirst.png")}  alt="Connectez vous d'abord"/>
                 </div>
+                </>
             )
              }
         </div>

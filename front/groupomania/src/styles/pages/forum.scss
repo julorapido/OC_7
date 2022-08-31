@@ -44,12 +44,13 @@ body{
     padding-top: 10px;
     padding-bottom: 10px;
     justify-content: space-around;
-    border-bottom: 4px solid  $home-semigrey;
+    box-shadow: 0px 4px 0px $home-semigrey;
+    border-bottom: 4px solid  $home-grey;
     h1{
         font-weight: 300;
     }
     p{
-        background-color: gainsboro;
+        background-color: $home-grey;
         border-radius: 10px;
         box-shadow: 0px 4px 0px $home-semigrey;
         border: 2px solid $home-semigrey;
@@ -65,9 +66,9 @@ body{
             margin-left: 20px;
             margin-top: auto;
             background-color: $color-4;
-            border: 2.5px solid $color-1;
+            border: 2.5px solid $home-semigrey;
             margin-bottom: auto;
-            box-shadow: 0px 4px 0px $color-1; 
+            box-shadow: 0px 4px 0px $home-semigrey;
          
         }
         .disconnect{
@@ -83,7 +84,7 @@ body{
             cursor: pointer;
             border-radius: 10px;
             font-size: 22px;
-            background-color: $color-2;
+            background-color: $home-grey;
             transition: 0.3s;
         }
         .editprofile:hover{
@@ -352,9 +353,26 @@ body{
             align-content: center;
             display: grid;
             grid-template-columns: auto auto auto;
+            padding-bottom: 40px;
         }
+    h6{
+        background-color: $color-2;
+        padding: 10px;
+        border-radius: 10px;
+        width: max-content;
+        margin-left: 15px;
+        font-size: 26px;
+        margin-top: 40px;
+        cursor: pointer;
+        margin-bottom: 30px;
+        transition: 0.3s;
+    }
+    h6:hover{
+        transform: translateX(4px);
+    }
+}   
 
-}
+
 .fil_members > h1{
     background-color: white;
     border-radius: 20px;
@@ -364,4 +382,46 @@ body{
     margin-left: auto;
     padding: 15px 25px 15px 25px;
     margin-right: auto;
+}
+
+.connect_first{
+    background-color: rgba(255, 255, 255, 0.432);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 25px;
+    margin-top: 10vh;
+    width: 60%;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    img{
+        border-radius: 30px;
+        border: 2px solid $color-1;
+        width: 85%;
+    }
+    h1{
+        background-color: $color-2;
+        color: $color-6;
+        width: 70%;
+        text-align: center;
+        padding: 15px;
+        font-weight: 300;
+        border-radius: 10px;
+        border: 2px solid $color-6;
+    }
+    h2{
+        background-color: $color-1;
+        padding: 20px;
+        border-radius: 20px;
+        border: 4px solid $color-6;
+        box-shadow: 2px 4px 0px $color-6;
+        transition: 0.3s;
+        margin-bottom: 35px;
+    }
+    h2:hover{
+        transform: translateX(-3px);
+        box-shadow: 0px 0px 0px $color-6;
+    }
 }

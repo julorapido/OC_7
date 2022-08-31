@@ -67,8 +67,7 @@ function UserProfile() {
             <>
             <div className='header'>
                 <p>GROUPOMANIA</p> 
-                <h1> <FontAwesomeIcon icon={faAddressCard} /> | 
-                {userData._id === localStorage.getItem("userId") ? (<>Votre Profil</>) : (<> Profil d'utilisateur</>)}
+                <h1> <FontAwesomeIcon icon={faAddressCard} /> {userData._id === localStorage.getItem("userId") ? (<>Votre Profil</>) : (<> Profil d'utilisateur</>)}
                 </h1>
                 <div className="edit">
                     <h2 className='editprofile'> 
@@ -111,7 +110,6 @@ function UserProfile() {
                                         <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg'
                                          onChange={handleFileChange} 
                                              ref={inputFile}/>
-                                        <h4>Taille Maximale 500 x 500 </h4>
                                         </>): (<>
                                         </>)}
                                         
