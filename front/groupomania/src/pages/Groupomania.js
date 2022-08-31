@@ -158,7 +158,7 @@ function Groupomania() {
 
 
                     <div className="top">
-                        <img src={require("../media/forum.png")}  alt="Icone du forum"/>
+                        {memberClicked ? (<><img src={require("../media/home3.png")}  alt="Icone du forum"/></>): (<><img src={require("../media/forum2.png")}  alt="Icone du forum"/></>)}
                         <div className="top_title">
                             <h1>Groupomania</h1>
                             <h2>Membre depuis le {date} </h2>

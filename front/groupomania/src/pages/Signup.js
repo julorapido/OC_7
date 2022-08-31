@@ -56,7 +56,7 @@ function Signup() {
             setEmailResp(' ');
             setEmail(event.target.value);
         }else{
-            setEmailResp('Email correct svp');
+            setEmailResp('Veuiller insérer un email correct');
         }
     }
 
@@ -104,7 +104,7 @@ function Signup() {
                         <h2>Mot de passe
                         <span>*</span>
                         </h2>
-                        <input type="text" defaultValue="Mot de passe"  onChange={e => setPassword(e.target.value)}/>
+                        <input type="password" defaultValue="Mot de passe"  onChange={e => setPassword(e.target.value)}/>
                         <h2 className='errorHandler'>{passwordResp}</h2>
                     </div>
 

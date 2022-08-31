@@ -112,14 +112,14 @@ body{
         flex-direction: column;
         margin-right: auto;
         img{
-            width: 97%;
+            width: 95%;
             border-radius: 19px 19px 0px 0px;
             max-width: 1200px;
-            max-height: 400px;
+            max-height: 450px;
             min-height: 125px;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         h1, h2{
@@ -344,7 +344,7 @@ body{
 .fil_members{
     margin-left: auto;
     margin-right: auto;
- 
+
         .cards-member{
             border-radius: 25px;
             background-color: white;
@@ -377,6 +377,14 @@ body{
         transform: translateX(4px);
     }
 }   
+.fil_members> h1{
+    font-size: 33px;
+    margin-top: 35px;
+    background-color: $color-2 !important;
+    border-color: $color-6 !important;
+    color: $color-6;
+    box-shadow: 3px 3px 0px $color-6 !important;
+}
 
 
 .fil_members > h1{
