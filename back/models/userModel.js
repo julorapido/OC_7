@@ -21,19 +21,17 @@ const userSchema = new mongoose.Schema(
     },
     imageUrl: {
         type: String,
-        default: "http://localhost:3000/uploads/react.png",
+        default: "http://localhost:3000/uploads/defaultUser.png",
         required: true
     },
     nom: {
         type: String,
         required: true,
-        lowercase: true,
         trim: true,
     },
     prenom: {
         type: String,
         required: true,
-        lowercase: true,
         trim: true,
     },
     admin:{

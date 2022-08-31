@@ -115,6 +115,10 @@ body{
             margin-top: -5px;
             padding-left: 2px;
             font-weight: 400;
+            span{
+                color: $color-1;
+                font-weight: 600;
+            }
         }
         h4{
             word-spacing: 3px;

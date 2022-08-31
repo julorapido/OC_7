@@ -18,6 +18,7 @@ function Groupomania() {
     const inputFile = useRef(null);
     const [fileName, setFileName] = useState('');
     const [memberClicked, setMemberClicked] = useState(false);
+    const [users, getUsers] = useState('');
 
     const dispatch = useDispatch();
     const postsData = useSelector((state) => state.posts.posts);
@@ -52,14 +53,11 @@ function Groupomania() {
     async function handleClick(){
         const form = new FormData();
         if (file){
-            form.append('image', file, 'image.png');
+            form.append('image', file, localStorage.getItem("userId") + "_poste_" + file.name);
         }
         form.append('userId', localStorage.getItem("userId").toString());
         form.append('description', newMessage);
-        const data = {};
-        form.forEach((value, key) => (
-            data[key] = value
-        ));
+
         await axios({
             method: "post",
             url: "http://localhost:3000/api/post/",
@@ -67,12 +65,17 @@ function Groupomania() {
             headers: { "Content-Type": "multipart/form-data" },
           })
         .then(resp => {
+                console.log(resp.data)
                 dispatch(addPost(resp.data));
         }).catch(err => console.log(err))
     }
 
 
     useEffect(() => {
+        axios.get("http://localhost:3000/api/auth/users").then((response)  => {
+            getUsers(response.data.docs);
+        })
+        .catch(error => console.error(`Error : ${error}`))
         CheckUserAuth();
         getUserInfo();
         if (userAuth){
@@ -131,7 +134,7 @@ function Groupomania() {
                         </div>
                         <h4>Bienvenue,  {userData.nom} {userData.prenom}</h4>
                         <h1>Communauté Groupomania <FontAwesomeIcon icon={faEarthAmerica} /> </h1>
-                         <h2>Communauté publique * 112 Membres</h2>
+                         <h2>Communauté publique  : <span> {users} Membres</span></h2>
 
                          <div className="bottom_title">
                             <h1 onClick={turnOff} className={memberClicked ? "" : "navclicked"}>Forum</h1>

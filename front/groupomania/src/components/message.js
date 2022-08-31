@@ -19,7 +19,6 @@ function Message({Message}) {
     const [loggedUserData, setloggedUserData] = useState([]);
     const [messageDeleted, setMessageDeleted] = useState(false);
     const [randomClass, setRandomClass] = useState(false);
-    const [userAdmin, setuserAdmin] = useState(false);
     const [messagePhoto, setMessagePhoto] = useState(true);
     const [userLiked, setUserLiked] = useState(false);
     const [userAlreadyLiked, setuserAlreadyLiked] = useState(false);
@@ -31,17 +30,12 @@ function Message({Message}) {
     useEffect(() => {
         if (randInt === 1 || randInt === 3){setRandomClass(true);}
         getUserInfo();
+        
         if ( (localStorage.getItem("userId") === Message.userId)){
             setuserId(true);
         }else{setuserId(false);}
-
         if(loggedUserData.admin === true ){setuserId(true);};
 
-        if (userData.admin === true){
-            setuserAdmin(true);
-        }else{
-            setuserAdmin(false);
-        }
 
         if (Message.imageUrl === "http://localhost:3000/uploads"){
             setMessagePhoto(false);
@@ -81,7 +75,6 @@ function Message({Message}) {
                     setUserLiked(true);
                 }
             });
-            console.log( userLiked);
     }
 
 
@@ -130,7 +123,7 @@ function Message({Message}) {
                                                 <h1>{userData.nom} {userData.prenom}</h1>
                                                 <>
                                                 {
-                                                    userAdmin ? 
+                                                    userData.admin === true ? 
                                                     (<>
                                                     <h2>Administrateur Groupomania</h2>
                                                     </>) 
@@ -157,7 +150,7 @@ function Message({Message}) {
                                                 <h1>{userData.nom} {userData.prenom}</h1>
                                                 <>
                                                 {
-                                                    userAdmin ? 
+                                                    userData.admin === true ? 
                                                     (<>
                                                     <h2>Administrateur Groupomania</h2>
                                                     </>) 

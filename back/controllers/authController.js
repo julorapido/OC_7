@@ -2,6 +2,7 @@ const UserModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const {signUpErrors, signInErrors } = require('../utils/errorsUtils');
 const fs = require('fs');
+const { get } = require('jquery');
 
 
 module.exports.signup = async (req, res) => {
@@ -47,7 +48,6 @@ module.exports.getUserCount = async (req,res) => {
         if (err) return res.status(400).send(err)
         else 
         {
-            console.log(docs);
             return res.status(200).send({docs});
         }
     })
@@ -68,19 +68,19 @@ module.exports.updateUser = async (req,res) => {
     if (!req.file){
             return res.status(401).send("Pas de fichier envoyé");    
     }else {
-        /// SUPPRESSION DE L'IMAGE PRÉCÉDENTE////////////////////
         const getUser = await UserModel.findById(req.params.id);
-        const filename = getUser.imageUrl.split('/uploads/')[1];
-        fs.unlink(`uploads/${filename}`, (err => {if (err) console.log(err)}));
-        ////////////////////////////////////////////////////////////
+        /// SUPPRESSION DE L'IMAGE PRÉCÉDENTE SI IL NE S'AGIT PAS DE LA PHOTO DE PROFIL PAR DÉFAUT////////////////////
+        if (getUser.imageUrl != "http://localhost:3000/uploads/defaultUser.png"){
+            const filename = getUser.imageUrl.split('/uploads/')[1];
+            fs.unlink(`uploads/${filename}`, (err => {if (err) console.log(err)}));
+        }
+
         try{
             const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, { $set: {
-                nom: req.body.nom,
-                prenom: req.body.prenom,
                 imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
             }});
 
-            return res.status(201).json(req.file.filename);
+            return res.status(201).json(updatedUser.imageUrl);
         }catch(err){
             return res.status(401).send(err);
         }

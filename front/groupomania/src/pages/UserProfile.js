@@ -10,13 +10,13 @@ import Fade from 'react-reveal/Fade';
 
 function UserProfile() {
         const [userData, setUserData] = useState([]);
-        const [isAdmin, setIsAdmin] = useState(false);
         const params = useParams();
         const date = dateParser(userData.createdAt, false);
-        const [fileUrl, setFileUrl] = useState("http://localhost:3000/uploads/");
+        const [fileUrl, setFileUrl] = useState("");
         const inputFile = useRef(null);
         const [file, setFile] = useState();
         const [userCanEdit, setuserCanEdit] = useState(false);
+
 
         async function getUserInfo(){
             await axios.get("http://localhost:3000/api/auth/" + params.id.toString()
@@ -24,43 +24,45 @@ function UserProfile() {
                 setUserData(resp.data);
             }).catch(err => console.log(err))
         }
-        const handlePicture = (e)=> {
-            setFileUrl(fileUrl + e.target.files[0].name);
-            setFile(e.target.files[0]);
-            if (e.target.files[0]){
-                UpdateUserData();
-            }
+
+
+        async function handlePicture (e) {
+            console.log(e.name);
+            await UpdateUserData().then(resp => {
+                setFileUrl("http://localhost:3000/uploads/"+ localStorage.getItem("userId") + "-" + e.name);
+            });
         }
+
 
         async function UpdateUserData(){
             const form = new FormData();
             if (file){
-                form.append('image', file, 'image.png');
+                form.append('image', file, localStorage.getItem("userId") + "-" + file.name);
             }
-            const data = {};
-            form.forEach((value, key) => (
-                data[key] = value
-            ));
             await axios({
                 method: "put",
                 url: "http://localhost:3000/api/auth/" + localStorage.getItem("userId"),
                 data: form,
                 headers: { "Content-Type": "multipart/form-data" },
               })
-            .then(resp => {
-                console.log(resp.data);
-            }).catch(err => console.log(err))
+            .then(resp => {}).catch(err => console.log(err));
         }
+
+
+
+
         useEffect(() => {            
             getUserInfo();
-            if (userData.admin === true){
-                setIsAdmin(true);
-            }else{setIsAdmin(false);}
 
             if (userData._id === localStorage.getItem("userId")){
                 setuserCanEdit(true);
             }
-        }, [userData]);
+
+            if (file){
+                handlePicture(file);
+                setFile();
+            }
+        }, [userData, setFile, fileUrl]);
 
 
         return (
@@ -96,20 +98,19 @@ function UserProfile() {
                             <Fade bottom>
                             <div className="profile_content">
                                 <div className="profile_subcontent">
-                                        <img src={userData.imageUrl} alt="Icone de profil"/>
+                                        {fileUrl === "" ? (<><img src={userData.imageUrl} alt="Icone de profil"/></>) : (<><img src={fileUrl} alt="Icone de profil"/></>)}
                                         <h1>{userData.nom} {userData.prenom}</h1>
-                                        {isAdmin ?(<>
+                                        {userData.admin === true ?(<>
                                         <h2>Administrateur Groupomania</h2></>) 
                                          : (<> <h2>Membre de la Communauté</h2>
                                         </>)} 
                                         <h3>Membre depuis le {date} </h3>
                                         {userCanEdit ? (<>
-                                            <button onClick={() => inputFile.current.click()} >Modifier sa photo de profil</button>
-                                        <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => handlePicture(e)} ref={inputFile}/>
+                                            <button onClick={() => inputFile.current.click()} >Modifier votre photo de profil</button>
+                                        <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => setFile(e.target.files[0])} ref={inputFile}/>
                                         </>): (<>
-                          
                                         </>)}
-                           
+                                        
                                 </div>  
                              
                             </div>
