@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { NavLink, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightToBracket, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightToBracket, faHouse, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import {useEffect, useState, useRef} from 'react';
 import '../styles/pages/userprofile.scss';
 import {dateParser} from'../components/utils';
@@ -68,8 +68,10 @@ function UserProfile() {
         return (
             <>
             <div className='header'>
-                <h2>GROUPOMANIA</h2> 
-                <h1>Profil d'utilisateur</h1>
+                <p>GROUPOMANIA</p> 
+                <h1> <FontAwesomeIcon icon={faAddressCard} /> | 
+                {userCanEdit ? (<>Votre Profil</>) : (<> Profil d'utilisateur</>)}
+                </h1>
                 <div className="edit">
                     <h2 className='editprofile'> 
                                         <NavLink exact to="/forum/" className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
@@ -77,7 +79,7 @@ function UserProfile() {
                                         </NavLink>
                     </h2>
 
-                    <h2>
+                    <h2 className='disconnect'>
                             <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} >
                             Déconnexion
                             <FontAwesomeIcon icon={faArrowRightToBracket} className="headerFa"/>
@@ -108,6 +110,7 @@ function UserProfile() {
                                         {userCanEdit ? (<>
                                             <button onClick={() => inputFile.current.click()} >Modifier votre photo de profil</button>
                                         <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => setFile(e.target.files[0])} ref={inputFile}/>
+                                        <h4>Taille Maximale 500 x 500 </h4>
                                         </>): (<>
                                         </>)}
                                         

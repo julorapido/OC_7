@@ -1,0 +1,47 @@
+@import '../settings';
+
+.member_card{
+    background-color: $home-grey;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    word-break: break-word; 
+    justify-content: center;
+    align-items: center;
+    border: 2px solid $home-semigrey;
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 30px;
+    transition: 0.3s;
+    box-shadow: 0px 7px 0px $home-grey;
+    img{
+        width: 125px;
+        height: 125px;
+        background-color: red;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 25px;
+        border: 2px solid $home-grey;
+        box-shadow: 2px 4px 0px $home-semigrey;
+    }
+    h1, h2, h3, h4{
+        width: 90%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    h1, h2{
+        font-size: 27px;
+    }
+    h2{
+        margin-top: -3px;
+    }
+    h3{
+        font-weight: 300;
+    }
+}
+.member_card:hover{
+    box-shadow: 0px 0px 0px $home-grey;
+    transform: translateX(5px);
+}

@@ -1,6 +1,7 @@
 import {useEffect, useState, useRef} from 'react'
 import axios from 'axios';
 import MessageCard from "../components/message";
+import MemberCard from "../components/member";
 import {useDispatch, useSelector} from "react-redux";
 import cookies from 'js-cookie';
 import { NavLink } from "react-router-dom";
@@ -8,7 +9,7 @@ import '../styles/pages/forum.scss'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket, faPeopleArrows } from '@fortawesome/free-solid-svg-icons'
 import Fade from 'react-reveal/Fade';
 
 function Groupomania() {
@@ -24,6 +25,8 @@ function Groupomania() {
     const postsData = useSelector((state) => state.posts.posts);
     const [file, setFile] = useState();
     const date = dateParser(userData.createdAt, false);
+
+    const [allUsersData, setallUsersData] = useState([]);
 
     async function CheckUserAuth (){
         if (cookies.get("jwt")){
@@ -43,6 +46,16 @@ function Groupomania() {
         }else {
             setuserAuth(false);
         }
+    }
+
+    async function GetAllMumbers(allUsersData){
+        if (allUsersData.length === 0){
+            await axios.get("http://localhost:3000/api/auth/"
+            ).then((resp) => {
+                setallUsersData(resp.data);
+            }).catch(err => console.log(err))
+        }
+
     }
 
     const handlePicture = (e)=> {
@@ -75,8 +88,10 @@ function Groupomania() {
         axios.get("http://localhost:3000/api/auth/users").then((response)  => {
             getUsers(response.data.docs);
         })
+        
         .catch(error => console.error(`Error : ${error}`))
         CheckUserAuth();
+        GetAllMumbers(allUsersData);
         getUserInfo();
         if (userAuth){
             axios.get('http://localhost:3000/api/post/').then(
@@ -104,8 +119,8 @@ function Groupomania() {
             <>
 
                 <div className="header">
-                            <h2>GROUPOMANIA</h2> 
-                            <h1>Postes de la Communauté</h1>
+                            <p>GROUPOMANIA</p> 
+                            <h1> <FontAwesomeIcon icon={faPeopleArrows} /> | Postes de la Communauté</h1>
                             <div className="edit">
                               <h2 className='editprofile'> 
                                     <NavLink exact to={"/forum/user/" + localStorage.getItem("userId").toString()} className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
@@ -113,7 +128,7 @@ function Groupomania() {
                                     </NavLink>
                               </h2>
 
-                               <h2>
+                              <h2 className='disconnect'>
                                     <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} >
                                     Déconnexion
                                     <FontAwesomeIcon icon={faArrowRightToBracket} className="headerFa"/>
@@ -145,6 +160,33 @@ function Groupomania() {
                         {memberClicked ? (<>
 
                             tout les membres
+
+                            <div className='fil_members'>
+                                <Fade top>
+                                    <h1>Liste des membres</h1>
+                                    </Fade>
+                                        <div className="cards-member">
+                                            {allUsersData?.map((oneUser, index) => (
+                                                <>
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+
+                                                <MemberCard key={index} MemberInfo={oneUser} />
+
+
+                                                </>
+                                    
+                                            )).reverse()}
+                                        </div>
+                         
+                            </div>
 
                         </>): (
                             <>

@@ -86,3 +86,21 @@ module.exports.updateUser = async (req,res) => {
         }
     }
 }
+
+module.exports.getAllMembers = async (req, res) => {
+        UserModel.find((err, docs) => {
+            ////////////////// VIDER LE CHAMP PASSWORD  (alléger requête en vidant le champ updatedAt)///////////////
+            const FilteredUsers = []
+            docs.filter(user => {
+                user.password = "";
+                user.updatedAt = "";
+                FilteredUsers.push(user)
+                }
+            );
+            if (!err) res.send(FilteredUsers)
+            else {
+                res.send(err);
+            }
+        })
+    
+}
