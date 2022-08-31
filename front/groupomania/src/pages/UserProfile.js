@@ -14,9 +14,8 @@ function UserProfile() {
         const date = dateParser(userData.createdAt, false);
         const [fileUrl, setFileUrl] = useState("");
         const inputFile = useRef(null);
-        const [file, setFile] = useState();
-        const [userCanEdit, setuserCanEdit] = useState(false);
-
+        const [file, setFile] = useState(null);
+        const [userCount, setUserCount] = useState(0);
 
         async function getUserInfo(){
             await axios.get("http://localhost:3000/api/auth/" + params.id.toString()
@@ -25,19 +24,23 @@ function UserProfile() {
             }).catch(err => console.log(err))
         }
 
-
-        async function handlePicture (e) {
-            console.log(e.name);
-            await UpdateUserData().then(resp => {
-                setFileUrl("http://localhost:3000/uploads/"+ localStorage.getItem("userId") + "-" + e.name);
-            });
+        async function getPostsCount(){
+            await axios.get("http://localhost:3000/api/post/user/" + params.id.toString()
+            ).then((resp) => {
+                setUserCount(resp.data);
+            }).catch(err => console.log(err))
         }
+        
+        const handleFileChange = (e) => {
+            setFile(e.target.files[0]);
+            UpdateUserData(e.target.files[0]);
+          };
 
-
-        async function UpdateUserData(){
+        async function UpdateUserData(imageFile){
+ 
             const form = new FormData();
-            if (file){
-                form.append('image', file, localStorage.getItem("userId") + "-" + file.name);
+            if (imageFile){
+                form.append('image', imageFile, localStorage.getItem("userId") + "-" + imageFile.name);
             }
             await axios({
                 method: "put",
@@ -45,24 +48,19 @@ function UserProfile() {
                 data: form,
                 headers: { "Content-Type": "multipart/form-data" },
               })
-            .then(resp => {}).catch(err => console.log(err));
+            .then(resp => {
+                setFileUrl("http://localhost:3000/uploads/"+ localStorage.getItem("userId") + "-" + imageFile.name);
+            }).catch(err => console.log(err));
+            setFile();
         }
 
 
 
-
-        useEffect(() => {            
+        useEffect(() => {         
             getUserInfo();
+            getPostsCount();
+        }, []);
 
-            if (userData._id === localStorage.getItem("userId")){
-                setuserCanEdit(true);
-            }
-
-            if (file){
-                handlePicture(file);
-                setFile();
-            }
-        }, [userData, setFile, fileUrl]);
 
 
         return (
@@ -70,7 +68,7 @@ function UserProfile() {
             <div className='header'>
                 <p>GROUPOMANIA</p> 
                 <h1> <FontAwesomeIcon icon={faAddressCard} /> | 
-                {userCanEdit ? (<>Votre Profil</>) : (<> Profil d'utilisateur</>)}
+                {userData._id === localStorage.getItem("userId") ? (<>Votre Profil</>) : (<> Profil d'utilisateur</>)}
                 </h1>
                 <div className="edit">
                     <h2 className='editprofile'> 
@@ -106,10 +104,13 @@ function UserProfile() {
                                         <h2>Administrateur Groupomania</h2></>) 
                                          : (<> <h2>Membre de la Communauté</h2>
                                         </>)} 
+                                        <h2>{userCount} Postes</h2>
                                         <h3>Membre depuis le {date} </h3>
-                                        {userCanEdit ? (<>
+                                        {userData._id === localStorage.getItem("userId") ? (<>
                                             <button onClick={() => inputFile.current.click()} >Modifier votre photo de profil</button>
-                                        <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg' onChange={e => setFile(e.target.files[0])} ref={inputFile}/>
+                                        <input type="file" name="messagePicture" accept="image/png, image/jpeg" title='' id='uploadimg'
+                                         onChange={handleFileChange} 
+                                             ref={inputFile}/>
                                         <h4>Taille Maximale 500 x 500 </h4>
                                         </>): (<>
                                         </>)}

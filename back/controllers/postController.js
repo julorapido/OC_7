@@ -10,7 +10,22 @@ module.exports.getAllPosts = (req, res) => {
         }
     })
 }
+module.exports.getUserPostCount = (req, res) => {
+    const userId = req.params.id;
 
+    PostModel.find((err, docs) => {
+       const postFilter = docs.filter(allPosts => 
+            allPosts.userId === userId
+        );
+        const postCount = postFilter.length;
+        if (!err) {
+            return res.status(200).send(postCount.toString());
+        } 
+        else {
+            res.send(err);
+        }
+    })
+}
 
 module.exports.createNewPost = async (req ,res) => {
     var newPost = new PostModel();

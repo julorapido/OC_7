@@ -149,7 +149,7 @@ function Groupomania() {
                         </div>
                         <h4>Bienvenue,  {userData.nom} {userData.prenom}</h4>
                         <h1>Communauté Groupomania <FontAwesomeIcon icon={faEarthAmerica} /> </h1>
-                         <h2>Communauté publique  : <span> {users} Membres</span></h2>
+                        {memberClicked ? (<><h2>Communauté publique  : <span> {users} Membres</span></h2></>) : (<><h2>Forum Groupomania  : <span> {postsData ? (<>{postsData.length}</>) : (<></>)} Postes</span></h2></>)}
 
                          <div className="bottom_title">
                             <h1 onClick={turnOff} className={memberClicked ? "" : "navclicked"}>Forum</h1>
