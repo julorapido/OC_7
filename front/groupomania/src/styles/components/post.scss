@@ -112,13 +112,15 @@
             background-color: $home-grey;
             border-radius: 10px;
             font-size: 20px;
+            border: 0px solid;
             color: $home-darkgrey;
         }
         button {
-            padding: 15px;
+            padding: 12px;
             margin-left: 30px;
-            font-size: 22px;
+            font-size: 19px;
             color: $color-1;
+            border: 0px solid;
             background-color: $color-2;
             border-radius: 15px;
         }

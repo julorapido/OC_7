@@ -90,3 +90,20 @@
         transform: rotate(360deg);
     }
     } 
+
+
+     /* PHONE */
+ @media screen and  (max-width: 425px){
+    .profile_content{
+        width: 85%;
+    }
+    .profile_subcontent{
+        img{
+            width: 150px !important;
+        }
+        button {
+            font-size: 18px !important;
+        }
+    }
+
+ }

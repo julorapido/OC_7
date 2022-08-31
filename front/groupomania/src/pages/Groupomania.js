@@ -10,7 +10,7 @@ import '../styles/pages/responsive_forum.scss'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket, faPeopleArrows, faCircleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faImages, faEarthAmerica, faPaperPlane, faCloudArrowDown, faCaretRight, faUserPen, faArrowRightToBracket, faPeopleArrows, faCircleLeft, faArrowTrendUp, faArrowTrendDown } from '@fortawesome/free-solid-svg-icons'
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Fade';
 
@@ -179,7 +179,7 @@ function Groupomania() {
                                     <h1>Liste des membres</h1>
                                 </Slide>
                                 <Slide bottom>
-                                    {sortMode ? (<> <h6 onClick={switchSort}>Trier par date (décroissant) </h6></>) : (<> <h6 onClick={switchSort} >Trier par date (croissant) </h6></>)}
+                                    {sortMode ? (<> <h6 onClick={switchSort}>Trier par date (décroissant) <FontAwesomeIcon icon={faArrowTrendDown}/>  </h6></>) : (<> <h6 onClick={switchSort} >Trier par date (croissant)<FontAwesomeIcon icon={faArrowTrendUp}/> </h6></>)}
                                 </Slide>
              
                                         <div className="cards-member">

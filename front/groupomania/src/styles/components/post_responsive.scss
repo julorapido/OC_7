@@ -1,4 +1,10 @@
+/* TABLETTE */
 @media screen and  (max-width: 768px){
+    .mid_msg{
+        button{
+            margin-top: 20px;
+        }
+    }
     .bottom_msg{
         .inf_msg{
             display: flex;
@@ -9,3 +15,33 @@
         }
     }
 }
+
+ /* PHONE */
+ @media screen and  (max-width: 425px){
+    .top_msg{
+        display: inline;
+        flex-direction: column-reverse !important;
+    }
+    .edit_msg{
+        flex-direction: column !important;
+        button{
+            margin-top: 10px !important;
+        }
+    }
+    .mid_msg{
+        input{
+            width: 75%;
+            margin-left: 20px !important;
+        }
+    }
+    .textdiv{
+        h1{
+            font-size: 20px !important;
+        }
+        h2{
+            margin-top: -5px !important;
+            font-size: 17px !important;
+        }
+    }
+
+ }
