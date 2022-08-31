@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import cookies from 'js-cookie';
 import { NavLink } from "react-router-dom";
 import '../styles/pages/forum.scss'
+import '../styles/pages/responsive_forum.scss'
 import {dateParser} from'../components/utils';
 import { setPostsData, addPost } from '../feature/postsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -134,16 +135,20 @@ function Groupomania() {
                             <h1> <FontAwesomeIcon icon={faPeopleArrows} />  Postes de la Communauté</h1>
                             <div className="edit">
                               <h2 className='editprofile'> 
+                                    <span>
                                     <NavLink exact to={"/forum/user/" + localStorage.getItem("userId").toString()} className="linktopage" style={{ textDecoration: 'none', color: "#000" }} >
                                     <FontAwesomeIcon icon={faUserPen} className="headerFa" /> Modifier mon profil
                                     </NavLink>
+                                    </span>
                               </h2>
 
                               <h2 className='disconnect'>
+
                                     <NavLink exact to="/login" className="linktopage" style={{ textDecoration: 'none', color: "#FD2D01" }} >
                                     Déconnexion
                                     <FontAwesomeIcon icon={faArrowRightToBracket} className="headerFa"/>
                                     </NavLink>
+                                                                     
                                </h2>
                            </div>
                 </div>

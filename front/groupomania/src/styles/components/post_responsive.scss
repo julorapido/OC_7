@@ -1,0 +1,11 @@
+@media screen and  (max-width: 768px){
+    .bottom_msg{
+        .inf_msg{
+            display: flex;
+            flex-direction: column;
+            h2{
+                float: none !important;
+            }
+        }
+    }
+}

@@ -3,6 +3,7 @@ import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {dateParser} from'./utils';
 import '../styles/components/post.scss';
+import '../styles/components/post_responsive.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
@@ -193,8 +194,10 @@ function Message({Message}) {
                 <div className="bottom_msg">
                     <div className="inf_msg">
                         <h2>{date}</h2>
+                        <div className="like">
                         <h4 onClick={handleLike} className={ userLiked === true ? "heart_liked" : " "}> <FontAwesomeIcon icon={faHeart} /> </h4>
                         <h3> {userAlreadyLiked === true ? ( Message.likes + likeInt) : ( Message.likes + userLiked ) }  </h3>
+                        </div>
                     </div>
                     <>
                         <div className="edit_msg">
