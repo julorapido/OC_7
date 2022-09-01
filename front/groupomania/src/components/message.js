@@ -10,7 +10,7 @@ import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addComment } from '../feature/commentSlice';
+import {addComment, setComments } from '../feature/commentSlice';
 import CommentCard from "../components/comment";
 
 function Message({Message}) {
@@ -39,7 +39,7 @@ function Message({Message}) {
 
      function DispatchComments(){
         Message.comments.forEach(element => {
-             dispatch(addComment(element));
+             dispatch(setComments(element));
         });
     }
 
@@ -259,7 +259,6 @@ function Message({Message}) {
                     </>
                     <>
                     <div className="all_comments">
-                        <h1>Commentaires</h1>
 
                         {commentsData.comments.length === 0 ? (<></>) : (<>
                             {commentsData.comments?.map(function(comment) {

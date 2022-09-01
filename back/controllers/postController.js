@@ -175,7 +175,7 @@ module.exports.commentPost = (req, res) => {
 module.exports.deleteCommentPost = (req, res) => {
     if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("Id de poste iconnu : " + req.params.id);
-    console.log(req.body);
+
     try{
         return PostModel.findByIdAndUpdate(
             req.params.id,
