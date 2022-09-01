@@ -5,7 +5,7 @@ import {dateParser} from'./utils';
 import '../styles/components/post.scss';
 import '../styles/components/post_responsive.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck, faCommentDots} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
@@ -28,7 +28,7 @@ function Message({Message}) {
     const [userLiked, setUserLiked] = useState(false);
     const [userAlreadyLiked, setuserAlreadyLiked] = useState(false);
     const [likeInt, setlikeInt] = useState(0);
-    const [newComment, setNewComment] = useState("");
+    const [newComment, setNewComment] = useState("Nouveau Commentaire");
     const dispatch = useDispatch();
     const commentsData = useSelector((state) => state.comments);
 
@@ -129,12 +129,14 @@ function Message({Message}) {
     }
 
     async function handleComment(){
-        await axios.post("http://localhost:3000/api/post/comment/" + Message._id, {
-            commenterId: localStorage.getItem("userId").toString(),
-            text: newComment,
-        }).then(resp => {
-            dispatch(addComment(resp.data));
-        }).catch(err => console.log(err))
+        if (newComment){
+            await axios.post("http://localhost:3000/api/post/comment/" + Message._id, {
+                commenterId: localStorage.getItem("userId").toString(),
+                text: newComment,
+            }).then(resp => {
+                dispatch(addComment(resp.data));
+            }).catch(err => console.log(err))
+        }
     }
     return (
         <>
@@ -248,20 +250,27 @@ function Message({Message}) {
            
                     </>
                     <>
+                    <h1>Commentaires</h1>
                     <div className="post_comment">
                         <input type="description" defaultValue="Nouveau Commentaire" onChange={e => setNewComment(e.target.value)} />
-                        <button onClick={handleComment}>Commenter</button>
+                        <button onClick={handleComment}>Commenter <FontAwesomeIcon icon={faCommentDots} /></button>
+                        
                     </div>
                     </>
                     <>
                     <div className="all_comments">
                         <h1>Commentaires</h1>
+
                         {commentsData.comments.length === 0 ? (<></>) : (<>
-                            {commentsData.comments.filter(commentsData => commentsData.postId === Message._id).map((comment) => (
-                                <Slide bottom>
-                                <CommentCard Commentaire={comment} />
-                                </Slide>
-                            )).reverse()}
+                            {commentsData.comments?.map(function(comment) {
+                                if (comment.postId === Message._id){
+                                    return (
+                                        <>
+                                            <CommentCard Commentaire={comment}/>
+                                        </>
+                                    )
+                                }
+                            })}  
                         </>)}  
                     </div>
                     </>

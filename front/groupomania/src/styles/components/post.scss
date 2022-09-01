@@ -231,9 +231,31 @@
             margin-bottom: 30px;
             input{
                 width: 70%;
+                border-radius: 7px;
+                padding: 10px;
+                font-size: 16px;
+                border: 2px solid $home-semigrey;
+                font-weight: 600;
+                color: $home-darkgrey;
+                transition: 0.3s;
+                background-color: $home-grey;
+            }
+            input:hover{
+                border: 2px solid $home-darkgrey;
+                transform: translateX(-3px);
             }
             button {
+                transition: 0.3s;
+                border-radius: 14px;
+                background-color: $color-1;
+                border: 2px solid $color-6;
+                box-shadow: 3px 3px 0px $color-6;
+                font-size: 20px;
+                color: white;
                 width: 25%;
+            }
+            button:hover{
+                box-shadow: 0px 0px 0px $color-6;
             }
         }
         .all_comments{

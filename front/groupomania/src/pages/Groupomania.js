@@ -253,11 +253,14 @@ function Groupomania() {
                 
                 </>): (
                 <div className='fil_messages'>
+                    
                         <div className="cards-container">
                             {postsData?.map((pic, index) => (
                                 <MessageCard key={index} Message={pic} />
                             )).reverse()}
                         </div>
+
+                        
                 </div>
 
                 )
