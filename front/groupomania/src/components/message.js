@@ -8,6 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import { setCommentsData, addComment } from '../feature/commentSlice';
+import CommentCard from "../components/comment";
+import Slide from 'react-reveal/Fade';
 
 function Message({Message}) {
 
@@ -15,7 +19,7 @@ function Message({Message}) {
     const [messageModifying, setMessageModifying] = useState(false);
     const [messageValue, setMessageValue] = useState('');
     const inputElement = useRef();
-    const [messageChangedOnce, setMessageChangedOnce] = useState(false);
+
     const [userData, setUserData] = useState([]);
     const [loggedUserData, setloggedUserData] = useState([]);
     const [messageDeleted, setMessageDeleted] = useState(false);
@@ -24,10 +28,24 @@ function Message({Message}) {
     const [userLiked, setUserLiked] = useState(false);
     const [userAlreadyLiked, setuserAlreadyLiked] = useState(false);
     const [likeInt, setlikeInt] = useState(0);
+    const [newComment, setNewComment] = useState("");
+    const dispatch = useDispatch();
+    const commentsData = useSelector((state) => state.comments);
 
     const randInt = Math.floor(Math.random() * 4);
-
+    //dispatch(setCommentsData(Message.comments));
     const date = dateParser(Message.createdAt, true);
+
+    async function DispatchComments(){
+        await dispatch(setCommentsData(Message.comments));
+    }
+
+    useEffect(() => {
+        if (Message.comments.length !== 0){
+            DispatchComments();      
+        }
+    }, [])
+
     useEffect(() => {
         if (randInt === 1 || randInt === 3){setRandomClass(true);}
         getUserInfo();
@@ -41,10 +59,13 @@ function Message({Message}) {
         if (Message.imageUrl === "http://localhost:3000/uploads"){
             setMessagePhoto(false);
         }
-        
-        if(messageValue.length === 0){setMessageChangedOnce(false)}else{setMessageChangedOnce(true)}
+  
         checkPostLikeStatus();
-    }, [messageValue, userData.admin])
+    }, [userData.admin])
+
+
+
+
 
 
     function handlemodify(){
@@ -55,7 +76,7 @@ function Message({Message}) {
     }
 
     function checkPostLikeStatus(){
-        if (Message.usersLiked.indexOf(localStorage.getItem("userId")) == -1){
+        if (Message.usersLiked.indexOf(localStorage.getItem("userId")) === -1){
             setUserLiked(false);
             setuserAlreadyLiked(false);
         }else{
@@ -104,6 +125,14 @@ function Message({Message}) {
         })))
     }
 
+    async function handleComment(){
+        await axios.post("http://localhost:3000/api/post/comment/" + Message._id, {
+            commenterId: localStorage.getItem("userId").toString(),
+            text: newComment,
+        }).then(resp => {
+            dispatch(addComment(resp.data));
+        }).catch(err => console.log(err))
+    }
     return (
         <>
         {messageDeleted ?
@@ -173,7 +202,7 @@ function Message({Message}) {
                     <div className='mid_msg'>
                         <input 
                             ref={inputElement}
-                            defaultValue={messageChangedOnce ? messageValue : Message.description }
+                            defaultValue={messageValue.length === 0 ? (Message.description) : (messageValue) }
                             autoFocus
                         />
                         <button onClick={ () => postModifiedMessage()}>Confirmer <FontAwesomeIcon icon={faSquareCheck} /></button>
@@ -184,7 +213,7 @@ function Message({Message}) {
                     </>
                 ) : (
                     <div className='mid_msg'>
-                        <h2>{messageChangedOnce ? messageValue : Message.description }</h2>
+                        <h2>{messageValue.length === 0 ? (Message.description) : (messageValue) }</h2>
                         <div className="imgdiv">
                             {messagePhoto ? (<><img src={Message.imageUrl} alt="Icone de message"/> </>) : (<></>)}
                         </div>
@@ -215,7 +244,38 @@ function Message({Message}) {
                         </div>
            
                     </>
-
+                    <>
+                    <div className="post_comment">
+                        <input type="description" defaultValue="Nouveau Commentaire" onChange={e => setNewComment(e.target.value)} />
+                        <button onClick={handleComment}>Commenter</button>
+                    </div>
+                    </>
+                    <>
+                    <div className="all_comments">
+                        <h1>Commentaires</h1>
+                                
+                        {commentsData.comments.length === 0 ? (<></>) : (<>
+                            {commentsData.comments?.map((comment) => (
+                                <> 
+                                {comment.map((commentaire) => {
+                                    if (commentaire.postId === Message._id){
+                                        return(
+                                            <>
+                                            <CommentCard Commentaire={commentaire}/>
+                                            </>
+                                        )
+                                    }
+                                })}
+                                {/* {comment.postId === Message._id ? (<>pas comm du message</>) : (<></>) } */}
+                                </>
+                                )).reverse()}  
+                        </>)}
+             
+                        
+                  
+                        
+                    </div>
+                    </>
                 </div>
 
 

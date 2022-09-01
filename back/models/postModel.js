@@ -23,6 +23,17 @@ const postSchema = new mongoose.Schema(
             type: [String],
             default: [],
         },
+        comments: {
+            type: [
+                {
+                    postId: String,
+                    commenterId: String,
+                    text: String,
+                    timestamp: Number
+                }
+            ],
+            required: true,
+        }
         
     },{
         timestamps: true

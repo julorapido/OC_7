@@ -136,3 +136,38 @@ module.exports.likePost = async (req,res) => {
    }
 } 
            
+
+
+module.exports.commentPost = (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID de post Inconnue : " + req.params.id);
+    const postId = req.params.id;
+    const newComment = {
+        postId: postId,
+        commenterId: req.body.commenterId,
+        text: req.body.text,
+        timestamp: new Date().getTime()
+    }
+    try {
+        return PostModel.findByIdAndUpdate(
+            req.params.id,
+            {
+                $push: {
+                    comments: {
+                        postId: postId,
+                        commenterId: req.body.commenterId,
+                        text: req.body.text,
+                        timestamp: new Date().getTime()
+                    },
+                },
+            },
+            { new: true},
+            (err, docs) => {
+                if (!err) res.send(newComment);
+                else return res.status(400).send(err)
+            }
+        );
+    }catch (err){
+        return res.status(400).send(err);
+    }
+}

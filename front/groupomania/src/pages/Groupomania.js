@@ -100,7 +100,6 @@ function Groupomania() {
         if (userAuth){
             axios.get('http://localhost:3000/api/post/').then(
                 (resp) => {
-                    //console.log(resp.data)  
                     dispatch(setPostsData(resp.data))
                 }
             ).catch(err => console.log(err))
