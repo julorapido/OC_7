@@ -39,7 +39,7 @@ function Message({Message}) {
 
      function DispatchComments(){
         Message.comments.forEach(element => {
-             dispatch(setComments(element));
+             dispatch(addComment(element));
         });
     }
 

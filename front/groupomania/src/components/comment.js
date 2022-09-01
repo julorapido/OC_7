@@ -1,5 +1,5 @@
 import React from 'react';
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import '../styles/components/comment.scss';
 import axios from "axios";
 import { faTrashCan, faPenToSquare} from '@fortawesome/free-solid-svg-icons'
@@ -13,7 +13,9 @@ function Comment({Commentaire}) {
     const [userValid, setUserValid] = useState(false);
     const [userInfo, setUserInfo] = useState();
     const [commentDeleted, setCommentDeleted] = useState(false);
-
+    const [commentModifying, setCommentModifying] = useState(false);
+    const inputElement = useRef();
+    const [commentValue, setCommentValue] = useState("");
     async function fetchUser(){
         await axios.get("http://localhost:3000/api/auth/" + Commentaire.commenterId).then(
             resp => {
@@ -25,11 +27,24 @@ function Comment({Commentaire}) {
     async function DeleteComment(){
         await axios.post("http://localhost:3000/api/post/deleteComment/" + Commentaire.postId , {
             commentId: Commentaire._id
-        }).then(resp => console.log(resp)).catch(err => console.log(err));
+        }).then(resp => console.log(resp.data)).catch(err => console.log(err));
         setCommentDeleted(true);
     }
-
-
+    function ModifyComment(){
+        if (commentModifying){setCommentModifying(false)}
+        else{setCommentModifying(true)}    
+    }
+    function SendComment(){
+        setCommentModifying(false);
+        setCommentValue(inputElement.current.value);
+        const data = {
+            commentId: Commentaire._id,
+            text : inputElement.current.value
+        }
+         axios.post("http://localhost:3000/api/post/modifyComment/" + Commentaire.postId, data).then(resp => {
+            console.log(resp.data)
+         });
+    }
      useEffect(() => {
         if ( Commentaire.commenterId === localStorage.getItem("userId")){
             setUserValid(true);
@@ -51,14 +66,23 @@ function Comment({Commentaire}) {
                         </div>
 
                         <div className="top">
-                                <h1>{Commentaire.text}</h1>   
+                            {commentModifying ? (<>
+                                <input 
+                                    ref={inputElement}
+                                    defaultValue={commentValue.length === 0 ? (Commentaire.text) : (commentValue) }
+                                    autoFocus
+                                />  
+                                <button onClick={SendComment}>Confirmer</button>
+                            </>) :(<>
+                                <h1>{commentValue ?  (commentValue) : (Commentaire.text)  }</h1>    
+                            </>)}
                                 <h2>{date}</h2>    
                         </div>
 
                         <div className="bottom">
                             { userValid ? (<>
-                                <button><FontAwesomeIcon icon={faPenToSquare}/> </button>
-                                <button onClick={DeleteComment}><FontAwesomeIcon icon={faTrashCan}/> </button>
+                                <button onClick={ModifyComment}className='modify' ><FontAwesomeIcon icon={faPenToSquare} /> </button>
+                                <button onClick={DeleteComment} className='delete' ><FontAwesomeIcon icon={faTrashCan}/> </button>
                             </>) : (<></>)}   
                         </div>
 
