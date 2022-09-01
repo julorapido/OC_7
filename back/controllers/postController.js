@@ -171,3 +171,28 @@ module.exports.commentPost = (req, res) => {
         return res.status(400).send(err);
     }
 }
+
+module.exports.deleteCommentPost = (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("Id de poste iconnu : " + req.params.id);
+    console.log(req.body);
+    try{
+        return PostModel.findByIdAndUpdate(
+            req.params.id,
+            {
+                $pull: {
+                    comments: {
+                        _id: req.body.commentId,
+                    },
+                },
+            },
+            {new : true},
+            (err, docs) => {
+                if (!err) return res.status(200).send(docs);
+                else return res.status(400).send(err);
+            }
+        )
+    }catch(err) {
+        return res.status(400).send(err);
+    }
+}

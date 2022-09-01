@@ -6,11 +6,8 @@ export const commentsSlice = createSlice({
         comments: [],
     },
     reducers: {
-        setCommentsData: (state, {payload}) => {
-            state.comments.push(payload);
-        },
         addComment: (state, {payload}) => {
-            state.comments.push([payload]);
+            state.comments.push(payload);
         }
     }
 })

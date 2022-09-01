@@ -222,7 +222,7 @@
 
 
         .post_comment{
-            width: 90%;
+            width: 99%;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -235,6 +235,9 @@
             button {
                 width: 25%;
             }
+        }
+        .all_comments{
+            margin-bottom: 25px;
         }
     }
 

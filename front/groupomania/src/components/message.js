@@ -7,11 +7,11 @@ import '../styles/components/post_responsive.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import { setCommentsData, addComment } from '../feature/commentSlice';
+import {addComment } from '../feature/commentSlice';
 import CommentCard from "../components/comment";
-import Slide from 'react-reveal/Fade';
 
 function Message({Message}) {
 
@@ -36,13 +36,16 @@ function Message({Message}) {
     //dispatch(setCommentsData(Message.comments));
     const date = dateParser(Message.createdAt, true);
 
-    async function DispatchComments(){
-        await dispatch(setCommentsData(Message.comments));
+
+     function DispatchComments(){
+        Message.comments.forEach(element => {
+             dispatch(addComment(element));
+        });
     }
 
     useEffect(() => {
         if (Message.comments.length !== 0){
-            DispatchComments();      
+            DispatchComments();    
         }
     }, [])
 
@@ -253,27 +256,13 @@ function Message({Message}) {
                     <>
                     <div className="all_comments">
                         <h1>Commentaires</h1>
-                                
                         {commentsData.comments.length === 0 ? (<></>) : (<>
-                            {commentsData.comments?.map((comment) => (
-                                <> 
-                                {comment.map((commentaire) => {
-                                    if (commentaire.postId === Message._id){
-                                        return(
-                                            <>
-                                            <CommentCard Commentaire={commentaire}/>
-                                            </>
-                                        )
-                                    }
-                                })}
-                                {/* {comment.postId === Message._id ? (<>pas comm du message</>) : (<></>) } */}
-                                </>
-                                )).reverse()}  
-                        </>)}
-             
-                        
-                  
-                        
+                            {commentsData.comments.filter(commentsData => commentsData.postId === Message._id).map((comment) => (
+                                <Slide bottom>
+                                <CommentCard Commentaire={comment} />
+                                </Slide>
+                            )).reverse()}
+                        </>)}  
                     </div>
                     </>
                 </div>

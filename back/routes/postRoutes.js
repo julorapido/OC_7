@@ -11,6 +11,7 @@ router.put("/:id", postController.updatePost);
 router.post("/:id", postController.likePost);
 
 router.post("/comment/:id", postController.commentPost);
+router.post("/deleteComment/:id", postController.deleteCommentPost);
 
 
 
