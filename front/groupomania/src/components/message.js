@@ -7,10 +7,9 @@ import '../styles/components/post_responsive.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPenToSquare, faTrashCan, faEllipsis, faSquareCheck, faCommentDots} from '@fortawesome/free-solid-svg-icons';
 import Fade from 'react-reveal/Fade';
-import Slide from 'react-reveal/Fade';
 import { NavLink } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addComment, setComments } from '../feature/commentSlice';
+import {addComment } from '../feature/commentSlice';
 import CommentCard from "../components/comment";
 
 function Message({Message}) {
@@ -252,7 +251,7 @@ function Message({Message}) {
                     <>
                     <h1>Commentaires</h1>
                     <div className="post_comment">
-                        <input type="description" defaultValue="Nouveau Commentaire" onChange={e => setNewComment(e.target.value)} />
+                        <input type="description" placeholder="Nouveau Commentaire" onChange={e => setNewComment(e.target.value)} />
                         <button onClick={handleComment}>Commenter <FontAwesomeIcon icon={faCommentDots} /></button>
                         
                     </div>

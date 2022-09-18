@@ -8,6 +8,7 @@
     margin-right: auto;
     border-radius: 25px;
     margin-top: 50px;
+    margin-bottom: 100px;
     padding-top: 50px;
     padding-bottom: 50px;
     .profile_subcontent{
@@ -40,6 +41,32 @@
         input{
             display: none;
         }
+        p{
+            font-size: 20px;
+            margin-bottom: -5px;
+        }
+        .edit_input{
+            user-select: none;
+            outline: none;
+            display: block;
+            flex-direction: row !important;
+            margin-left: auto;
+            margin-right: auto;
+            border: 0px solid;
+            margin-top: 10px;
+            padding: 7px;
+            transition:  0.3s;
+            font-size: 18px;
+            background-color: white;
+            border-radius: 10px;
+            border: 2px solid black;
+        }
+        .edit_input:hover{
+            border-color: $home-semigrey;
+        }
+        .red{
+            color: $color-1;
+        }
         button{
             padding: 15px;
             font-size: 21px;
@@ -50,6 +77,11 @@
             border-radius: 15px;
             color: white;
             transition: 0.3s;
+        }
+        .edit{
+            padding: 6px;
+            font-size: 19px;
+            border-radius: 5px;
         }
         button:hover{
             box-shadow: 0px 0px 0px $color-6;

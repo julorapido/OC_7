@@ -17,6 +17,17 @@ function UserProfile() {
         const [file, setFile] = useState(null);
         const [userCount, setUserCount] = useState(0);
 
+        const [userEditing, setuserEditing] = useState(false);
+
+        const inputElement = useRef();
+        const inputElement2 = useRef();
+        const inputElement3 = useRef();
+        const [prenomValue, setPrenomValue] = useState("");
+        const [nomValue, setNomValue] = useState("");
+
+        const [inputErrors, setInputErors] = useState("");
+        const [passwordError, setPasswordError] = useState("");
+
         async function getUserInfo(){
             await axios.get("http://localhost:3000/api/auth/" + params.id.toString()
             ).then((resp) => {
@@ -54,7 +65,39 @@ function UserProfile() {
             setFile();
         }
 
+    async function EditProfileAxios(){
+            setNomValue(inputElement.current.value);
+            setPrenomValue(inputElement2.current.value);
+            var data = {};
+            if (inputElement2.current.value.length > 0  && inputElement.current.value.length > 0 ){
+                if (inputElement3.current.value.length <= 0 ){
+                    data = {
+                       prenom: inputElement2.current.value,
+                       nom : inputElement.current.value
+                   }
+                   setInputErors("");
+                   setuserEditing(false);
+               }else {
+                    if (inputElement3.current.value.length >= 4){
+                        data = {
+                            prenom: inputElement2.current.value,
+                            nom : inputElement.current.value,
+                            password : inputElement3.current.value
+                        }
+                        setuserEditing(false);
+                        setPasswordError("");
+                    }else{
+                        setPasswordError("Longueur du Mot de Passe doit au moins être de 4" );
+                    }
+               }
+               axios.post("http://localhost:3000/api/auth/" + params.id , data).then(resp => {
+                console.log(resp.data);
+             });
 
+            }else{
+                setInputErors("Veuillez Remplir correctement les identifiants");
+            }
+        }
 
         useEffect(() => {         
             getUserInfo();
@@ -98,7 +141,58 @@ function UserProfile() {
                             <div className="profile_content">
                                 <div className="profile_subcontent">
                                         {fileUrl === "" ? (<><img src={userData.imageUrl} alt="Icone de profil"/></>) : (<><img src={fileUrl} alt="Icone de profil"/></>)}
-                                        <h1>{userData.nom} {userData.prenom}</h1>
+                                        <h1>
+                                            {userEditing === false ? 
+                                            (<> 
+                                            
+                                            <>{nomValue.length === 0 ? (userData.nom) + "   " : (nomValue)}</>
+                                             
+                                            <> {prenomValue.length === 0 ? "  " +  (userData.prenom) : (prenomValue)}</>
+                                            
+                                        
+                                            </>) 
+                                            : 
+                                            (<> 
+                                            <p>Nom</p>   
+                                            <input 
+                                            ref={inputElement}
+                                            defaultValue={nomValue.length === 0 ? (userData.nom) : (nomValue) }
+                                            autoFocus
+                                            className='edit_input'/>  
+                                             <p>Prenom</p>   
+                                            <input 
+                                            ref={inputElement2}
+                                            defaultValue={prenomValue.length === 0 ? (userData.prenom) : (prenomValue) }
+                                            autoFocus
+                                            className='edit_input'/>  
+                                           <p className='red'>{inputErrors}</p>
+                                            <p>Nouveau Mot de passe</p>   
+                                            <input 
+                                            ref={inputElement3}
+                                            defaultValue={""}
+                                            autoFocus
+                                            className='edit_input'
+                                            type="password" /> 
+                                            <p className='red'>{passwordError}</p>
+                                            </>)
+                                            }
+                                            
+                                            
+                                        </h1>
+
+                                        {userData._id === localStorage.getItem("userId") ? (<>
+                                            {userEditing === false ? 
+                                            (<><button onClick={() => setuserEditing(true)} className="edit" >Modifier vos Identifiants</button></>) 
+                                            :
+                                            (<><button onClick={() => EditProfileAxios()} className="edit" >Valider</button></>) 
+                                             }
+                                        </>)
+                                        
+                                        
+                                        : (<>
+                                        </>)}
+
+
                                         {userData.admin === true ?(<>
                                         <h2>Administrateur Groupomania</h2></>) 
                                          : (<> <h2>Membre de la Communauté</h2>

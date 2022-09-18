@@ -81,14 +81,14 @@ function Signup() {
                         <h2>Nom
                         <span>*</span>
                         </h2>
-                        <input type="text" defaultValue="Nom"  onChange={e => setFirstName(e.target.value)}/>
+                        <input type="text" placeholder="Nom"  onChange={e => setFirstName(e.target.value)}/>
                     </div>
 
                     <div className="form_text">
                         <h2>Prénom
                         <span>*</span>
                         </h2>
-                        <input type="text" defaultValue="Prénom" onChange={e => setLastName(e.target.value)}/>
+                        <input type="text" placeholder="Prénom" onChange={e => setLastName(e.target.value)}/>
                     </div>
 
                     <div className="form_text">
@@ -96,7 +96,7 @@ function Signup() {
                             Email
                             <span>*</span>
                         </h2>
-                        <input type="text"defaultValue="Adresse Mail"  onChange={handleEmail}/>
+                        <input type="text" placeholder="Adresse Mail"  onChange={handleEmail}/>
                         <h2 className='errorHandler'>{emailResp}</h2>
                     </div>
 
@@ -104,7 +104,7 @@ function Signup() {
                         <h2>Mot de passe
                         <span>*</span>
                         </h2>
-                        <input type="password" defaultValue="Mot de passe"  onChange={e => setPassword(e.target.value)}/>
+                        <input type="password" placeholder="Mot de passe"  onChange={e => setPassword(e.target.value)}/>
                         <h2 className='errorHandler'>{passwordResp}</h2>
                     </div>
 

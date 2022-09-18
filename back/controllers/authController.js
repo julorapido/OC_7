@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const {signUpErrors, signInErrors } = require('../utils/errorsUtils');
 const fs = require('fs');
 const { get } = require('jquery');
+const bcrypt = require('bcrypt');
 
 
 module.exports.signup = async (req, res) => {
@@ -64,7 +65,7 @@ module.exports.getSpecificUser = async (req, res) => {
             }
 }
 
-module.exports.updateUser = async (req,res) => {
+module.exports.updateUserPicture = async (req,res) => {
     if (!req.file){
             return res.status(401).send("Pas de fichier envoyé");    
     }else {
@@ -85,6 +86,30 @@ module.exports.updateUser = async (req,res) => {
             return res.status(401).send(err);
         }
     }
+}
+
+module.exports.editUser = async (req ,res) => {
+    if (req.body.password){
+        const salt = await bcrypt.genSalt();
+        const newPassword = await bcrypt.hash(req.body.password, salt);
+        console.log(newPassword);
+        await UserModel.findByIdAndUpdate(req.params.id , {
+            $set: {
+                prenom: req.body.prenom,
+                password: newPassword,
+                nom: req.body.nom,
+            }
+         });  
+    }else{
+        await UserModel.findByIdAndUpdate(req.params.id , {
+            $set: {
+                prenom: req.body.prenom,
+                nom: req.body.nom,
+            }
+         });
+         return res.status(201);
+    }
+
 }
 
 module.exports.getAllMembers = async (req, res) => {

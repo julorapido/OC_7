@@ -68,13 +68,13 @@ function Login() {
             
                 <div className="form_text">
                         <h2>Email</h2>
-                        <input type="email" defaultValue="Email"  onChange={e => setEmail(e.target.value)}/>
+                        <input type="email" placeholder="Email"  onChange={e => setEmail(e.target.value)}/>
                         <h2 className='errorHandler'>{emailResp}</h2>
                 </div>
 
                 <div className="form_text">
                         <h2>Mot de passe</h2>
-                        <input type="password" defaultValue="Mot de passe" onChange={e => setPassword(e.target.value)}/>
+                        <input type="password" placeholder="Mot de passe" onChange={e => setPassword(e.target.value)}/>
                         <h2 className='errorHandler'>{passwordResp}</h2>
                 </div>
 

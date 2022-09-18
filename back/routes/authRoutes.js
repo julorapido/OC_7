@@ -9,6 +9,8 @@ router.post("/login", authController.login);
 router.get("/", authController.getAllMembers);
 router.get("/users", authController.getUserCount);
 router.get("/:id", authController.getSpecificUser);
-router.put("/:id", upload.uploadImage, authController.updateUser);
+
+router.put("/:id", upload.uploadImage, authController.updateUserPicture);
+router.post("/:id", authController.editUser);
 
 module.exports = router;
