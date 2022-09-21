@@ -219,7 +219,7 @@ function Groupomania() {
                                 
                                 <div className="top">
                                     <h3>{userData.nom} {userData.prenom}</h3>
-                                    <input type="description" defaultValue="Nouveau message" onChange={e => setNewMessage(e.target.value)} className='desc_input' />
+                                    <input type="description"   placeholder="Nouveau message" onChange={e => setNewMessage(e.target.value)} className='desc_input' />
                                 </div>
 
                                 <div className="bottom">
