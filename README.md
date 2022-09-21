@@ -21,3 +21,7 @@ Aller dans le directoire "back" => cd back
  
 Qui permet d'installer toutes libraires nécéssaires au back et sa sécurisation
 du projet (NodeJs, Express, Multer, JWT, etc ...)
+
+### Ensuite écrivez ` npm start`
+ 
+Pour lancer le serveur 
