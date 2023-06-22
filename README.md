@@ -25,3 +25,4 @@ du projet (NodeJs, Express, Multer, JWT, etc ...)
 ### Ensuite écrivez ` npm start`
  
 Pour lancer le serveur 
+<img width="1440" alt="Groupomania" src="https://github.com/julorapido/OC_7/assets/86060986/ab62896e-943d-4e88-a54a-19c1b3c45846">
